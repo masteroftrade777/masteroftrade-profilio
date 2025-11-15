@@ -247,60 +247,41 @@
         .position-info {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-        }
-
-        .position-type {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        /* YENİ PROFESYONEL LEVERAGE TASARIMI */
-        .leverage-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 4px;
-        }
-
-        .leverage-badge {
-            padding: 6px 10px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
             gap: 4px;
-            border: 1px solid;
         }
 
-        .leverage-long {
-            background: linear-gradient(135deg, rgba(0, 192, 118, 0.15), rgba(0, 192, 118, 0.08));
-            color: var(--green);
-            border-color: rgba(0, 192, 118, 0.3);
+        /* YENİ SADE TASARIM */
+        .position-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
-        .leverage-short {
-            background: linear-gradient(135deg, rgba(255, 85, 74, 0.15), rgba(255, 85, 74, 0.08));
-            color: var(--red);
-            border-color: rgba(255, 85, 74, 0.3);
+        .leverage-info {
+            font-size: 11px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .leverage-icon {
-            font-size: 10px;
-            opacity: 0.8;
+            font-size: 9px;
+            opacity: 0.7;
         }
 
-        .margin-badge {
-            padding: 4px 8px;
-            border-radius: 6px;
+        .leverage-long {
+            color: var(--green);
+        }
+
+        .leverage-short {
+            color: var(--red);
+        }
+
+        .margin-type {
             font-size: 10px;
-            font-weight: 600;
-            background: rgba(55, 114, 255, 0.1);
             color: var(--blue);
-            border: 1px solid rgba(55, 114, 255, 0.2);
+            opacity: 0.8;
         }
 
         .price-cell {
@@ -634,12 +615,12 @@
                         <div class="coin-icon">${position.displayName.charAt(0)}</div>
                         <div class="position-info">
                             <div>${position.symbol}</div>
-                            <div class="leverage-container">
-                                <div class="leverage-badge leverage-long">
+                            <div class="position-details">
+                                <div class="leverage-info leverage-long">
                                     <i class="fas fa-arrow-trend-up leverage-icon"></i>
-                                    ${position.leverage}x LONG
+                                    ${position.leverage}x • LONG
                                 </div>
-                                <div class="margin-badge">Isolated</div>
+                                <div class="margin-type">Isolated</div>
                             </div>
                         </div>
                     </div>
