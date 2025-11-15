@@ -388,17 +388,17 @@
                 <div class="stat-label">En Yüksek PnL</div>
                 <div class="stat-value stat-positive" id="top-pnl-amount">$0.00</div>
                 <div class="coin-info">
-                    <span class="coin-symbol" id="top-coin-symbol">-</span>
                     <span class="coin-pnl stat-positive" id="top-coin-pnl">$0.00</span>
                 </div>
+                <div class="stat-subtext" id="top-coin-name">En Karlı Coin</div>
             </div>
             <div class="stat-card worst-performer">
                 <div class="stat-label">En Düşük PnL</div>
                 <div class="stat-value stat-negative" id="worst-pnl-amount">$0.00</div>
                 <div class="coin-info">
-                    <span class="coin-symbol" id="worst-coin-symbol">-</span>
                     <span class="coin-pnl stat-negative" id="worst-coin-pnl">$0.00</span>
                 </div>
+                <div class="stat-subtext" id="worst-coin-name">En Zararlı Coin</div>
             </div>
         </div>
 
@@ -426,7 +426,7 @@
 
         <!-- Footer -->
         <div class="footer">
-            <p>Gerçek zamanlı veriler Bybit API üzerinden sağlanmaktadır.</p>
+            <p>Gerçek zamanlı veriler Bybit API üzerinden sağlanmaktadır</p>
             <p>Bu sayfa sadece bilgi amaçlıdır. Yatırım tavsiyesi değildir.</p>
             <div class="github-info">
                 <i class="fab fa-github"></i> GitHub Pages ile yayınlanmıştır
@@ -646,14 +646,12 @@
         function updatePerformanceUI() {
             // En yüksek PnL UI güncelleme
             const topPnlAmount = document.getElementById('top-pnl-amount');
-            const topCoinSymbol = document.getElementById('top-coin-symbol');
             const topCoinPnl = document.getElementById('top-coin-pnl');
             const topCoinName = document.getElementById('top-coin-name');
 
             if (topPnlAmount && topPerformer.symbol) {
                 const sign = topPerformer.pnl >= 0 ? '+' : '';
                 topPnlAmount.textContent = `${sign}${formatNumber(topPerformer.pnl)}`;
-                topCoinSymbol.textContent = topPerformer.symbol;
                 topCoinPnl.textContent = `${sign}${formatNumber(topPerformer.pnl)}`;
                 topCoinName.textContent = topPerformer.name;
 
@@ -672,14 +670,12 @@
 
             // En düşük PnL UI güncelleme
             const worstPnlAmount = document.getElementById('worst-pnl-amount');
-            const worstCoinSymbol = document.getElementById('worst-coin-symbol');
             const worstCoinPnl = document.getElementById('worst-coin-pnl');
             const worstCoinName = document.getElementById('worst-coin-name');
 
             if (worstPnlAmount && worstPerformer.symbol) {
                 const sign = worstPerformer.pnl >= 0 ? '+' : '';
                 worstPnlAmount.textContent = `${sign}${formatNumber(worstPerformer.pnl)}`;
-                worstCoinSymbol.textContent = worstPerformer.symbol;
                 worstCoinPnl.textContent = `${sign}${formatNumber(worstPerformer.pnl)}`;
                 worstCoinName.textContent = worstPerformer.name;
 
