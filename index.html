@@ -147,20 +147,35 @@
 
         .coin-info {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
+            gap: 3px;
             margin-top: 8px;
         }
 
         .coin-symbol {
             font-weight: 600;
             color: var(--blue);
+            font-size: 14px;
         }
 
-        .coin-pnl {
+        .coin-pnl-main {
             font-weight: bold;
-            font-size: 16px;
+            font-size: 20px;
+            margin-top: 5px;
+        }
+
+        .total-pnl-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .total-pnl-value {
+            font-weight: bold;
+            font-size: 24px;
+            margin: 5px 0;
         }
 
         /* Warning Banner */
@@ -376,8 +391,9 @@
         <div class="stats-container">
             <div class="stat-card">
                 <div class="stat-label">Toplam PnL</div>
-                <div class="stat-value" id="total-pnl">$0.00</div>
-                <div class="stat-label">USDT</div>
+                <div class="total-pnl-container">
+                    <div class="total-pnl-value" id="total-pnl">$0.00 USDT</div>
+                </div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Açık Pozisyon</div>
@@ -386,19 +402,17 @@
             </div>
             <div class="stat-card top-performer">
                 <div class="stat-label">En Yüksek PnL</div>
-                <div class="stat-value stat-positive" id="top-pnl-amount">$0.00</div>
                 <div class="coin-info">
-                    <span class="coin-pnl stat-positive" id="top-coin-pnl">$0.00</span>
+                    <div class="coin-symbol" id="top-coin-name">-</div>
+                    <div class="coin-pnl-main stat-positive" id="top-coin-pnl">$0.00 USDT</div>
                 </div>
-                <div class="stat-subtext" id="top-coin-name">En Karlı Coin</div>
             </div>
             <div class="stat-card worst-performer">
                 <div class="stat-label">En Düşük PnL</div>
-                <div class="stat-value stat-negative" id="worst-pnl-amount">$0.00</div>
                 <div class="coin-info">
-                    <span class="coin-pnl stat-negative" id="worst-coin-pnl">$0.00</span>
+                    <div class="coin-symbol" id="worst-coin-name">-</div>
+                    <div class="coin-pnl-main stat-negative" id="worst-coin-pnl">$0.00 USDT</div>
                 </div>
-                <div class="stat-subtext" id="worst-coin-name">En Zararlı Coin</div>
             </div>
         </div>
 
@@ -645,50 +659,40 @@
 
         function updatePerformanceUI() {
             // En yüksek PnL UI güncelleme
-            const topPnlAmount = document.getElementById('top-pnl-amount');
             const topCoinPnl = document.getElementById('top-coin-pnl');
             const topCoinName = document.getElementById('top-coin-name');
 
-            if (topPnlAmount && topPerformer.symbol) {
+            if (topCoinPnl && topPerformer.symbol) {
                 const sign = topPerformer.pnl >= 0 ? '+' : '';
-                topPnlAmount.textContent = `${sign}${formatNumber(topPerformer.pnl)}`;
-                topCoinPnl.textContent = `${sign}${formatNumber(topPerformer.pnl)}`;
+                topCoinPnl.textContent = `${sign}${formatNumber(topPerformer.pnl)} USDT`;
                 topCoinName.textContent = topPerformer.name;
 
                 // Renk ayarla
                 if (topPerformer.pnl > 0) {
-                    topPnlAmount.className = 'stat-value stat-positive';
-                    topCoinPnl.className = 'coin-pnl stat-positive';
+                    topCoinPnl.className = 'coin-pnl-main stat-positive';
                 } else if (topPerformer.pnl < 0) {
-                    topPnlAmount.className = 'stat-value stat-negative';
-                    topCoinPnl.className = 'coin-pnl stat-negative';
+                    topCoinPnl.className = 'coin-pnl-main stat-negative';
                 } else {
-                    topPnlAmount.className = 'stat-value';
-                    topCoinPnl.className = 'coin-pnl';
+                    topCoinPnl.className = 'coin-pnl-main';
                 }
             }
 
             // En düşük PnL UI güncelleme
-            const worstPnlAmount = document.getElementById('worst-pnl-amount');
             const worstCoinPnl = document.getElementById('worst-coin-pnl');
             const worstCoinName = document.getElementById('worst-coin-name');
 
-            if (worstPnlAmount && worstPerformer.symbol) {
+            if (worstCoinPnl && worstPerformer.symbol) {
                 const sign = worstPerformer.pnl >= 0 ? '+' : '';
-                worstPnlAmount.textContent = `${sign}${formatNumber(worstPerformer.pnl)}`;
-                worstCoinPnl.textContent = `${sign}${formatNumber(worstPerformer.pnl)}`;
+                worstCoinPnl.textContent = `${sign}${formatNumber(worstPerformer.pnl)} USDT`;
                 worstCoinName.textContent = worstPerformer.name;
 
                 // Renk ayarla
                 if (worstPerformer.pnl > 0) {
-                    worstPnlAmount.className = 'stat-value stat-positive';
-                    worstCoinPnl.className = 'coin-pnl stat-positive';
+                    worstCoinPnl.className = 'coin-pnl-main stat-positive';
                 } else if (worstPerformer.pnl < 0) {
-                    worstPnlAmount.className = 'stat-value stat-negative';
-                    worstCoinPnl.className = 'coin-pnl stat-negative';
+                    worstCoinPnl.className = 'coin-pnl-main stat-negative';
                 } else {
-                    worstPnlAmount.className = 'stat-value';
-                    worstCoinPnl.className = 'coin-pnl';
+                    worstCoinPnl.className = 'coin-pnl-main';
                 }
             }
         }
@@ -843,16 +847,16 @@
             
             if (totalPnlElement) {
                 const sign = totalPnl >= 0 ? '+' : '';
-                totalPnlElement.textContent = `${sign}${formatNumber(totalPnl)}`;
+                totalPnlElement.textContent = `${sign}${formatNumber(totalPnl)} USDT`;
             }
             
             // Renkleri ayarla
             if (totalPnl > 0) {
-                if (totalPnlElement) totalPnlElement.className = 'stat-value stat-positive';
+                if (totalPnlElement) totalPnlElement.className = 'total-pnl-value stat-positive';
             } else if (totalPnl < 0) {
-                if (totalPnlElement) totalPnlElement.className = 'stat-value stat-negative';
+                if (totalPnlElement) totalPnlElement.className = 'total-pnl-value stat-negative';
             } else {
-                if (totalPnlElement) totalPnlElement.className = 'stat-value';
+                if (totalPnlElement) totalPnlElement.className = 'total-pnl-value';
             }
         }
 
