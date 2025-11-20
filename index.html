@@ -119,6 +119,10 @@
             background: var(--red);
         }
 
+        .stat-card.wallet-balance::before {
+            background: var(--blue);
+        }
+
         .stat-value {
             font-size: 24px;
             font-weight: bold;
@@ -176,6 +180,27 @@
             font-weight: bold;
             font-size: 24px;
             margin: 5px 0;
+        }
+
+        .wallet-balance-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .wallet-balance-value {
+            font-weight: bold;
+            font-size: 24px;
+            margin: 5px 0;
+            color: var(--blue);
+        }
+
+        .initial-balance-info {
+            font-size: 11px;
+            color: var(--text-secondary);
+            opacity: 0.7;
+            margin-top: 5px;
         }
 
         /* Warning Banner */
@@ -405,6 +430,13 @@
 
         <!-- Stats -->
         <div class="stats-container">
+            <div class="stat-card wallet-balance">
+                <div class="stat-label">Cüzdan Bakiyesi</div>
+                <div class="wallet-balance-container">
+                    <div class="wallet-balance-value" id="wallet-balance">$1,000.00 USDT</div>
+                    <div class="initial-balance-info">Başlangıç: $1,000.00 USDT</div>
+                </div>
+            </div>
             <div class="stat-card">
                 <div class="stat-label">Toplam PnL</div>
                 <div class="total-pnl-container">
@@ -413,7 +445,7 @@
             </div>
             <div class="stat-card">
                 <div class="stat-label">Açık Pozisyon</div>
-                <div class="stat-value">12</div>
+                <div class="stat-value">2</div>
                 <div class="stat-label">Toplam İşlem</div>
             </div>
             <div class="stat-card top-performer">
@@ -465,141 +497,34 @@
     </div>
 
     <script>
-        // Tüm pozisyon bilgileri (12 coin)
+        // Tüm pozisyon bilgileri (ETH ve SOL)
         const positions = {
-            btc: {
-                symbol: "BTCUSDT",
-                quantity: 140.583,
-                entryPrice: 96370.36,
-                leverage: 40,
-                liquidationPrice: 94916.40,
-                initialMargin: 113576946.36,
-                apiSymbol: "BTCUSDT",
-                side: "LONG",
-                displayName: "BTC"
-            },
-            sol: {
-                symbol: "SOLUSDT",
-                quantity: 42127.7,
-                entryPrice: 138.315,
-                leverage: 25,
-                liquidationPrice: 134.530,
-                initialMargin: 5826892.84,
-                apiSymbol: "SOLUSDT",
-                side: "LONG",
-                displayName: "SOL"
-            },
-            fil: {
-                symbol: "FILUSDT",
-                quantity: 591357.1,
-                entryPrice: 2.069,
-                leverage: 10,
-                liquidationPrice: 1.924,
-                initialMargin: 1223813.44,
-                apiSymbol: "FILUSDT",
-                side: "LONG",
-                displayName: "FIL"
-            },
             eth: {
                 symbol: "ETHUSDT",
-                quantity: 5212.04,
-                entryPrice: 3158.59,
+                quantity: 0.88,
+                entryPrice: 2835.00,
                 leverage: 25,
-                liquidationPrice: 3067.09,
-                initialMargin: 16462697.42,
+                liquidationPrice: 2735.28,
+                initialMargin: 2494.80,
                 apiSymbol: "ETHUSDT",
                 side: "LONG",
                 displayName: "ETH"
             },
-            xrp: {
-                symbol: "XRPUSDT",
-                quantity: 2355552.9,
-                entryPrice: 2.2811,
-                leverage: 10,
-                liquidationPrice: 2.1202,
-                initialMargin: 5373428.15,
-                apiSymbol: "XRPUSDT",
+            sol: {
+                symbol: "SOLUSDT",
+                quantity: 18.6,
+                entryPrice: 133.7,
+                leverage: 25,
+                liquidationPrice: 129.0,
+                initialMargin: 2486.82,
+                apiSymbol: "SOLUSDT",
                 side: "LONG",
-                displayName: "XRP"
-            },
-            aster: {
-                symbol: "ASTERUSDT",
-                quantity: 125000,
-                entryPrice: 1.0137,
-                leverage: 10,
-                liquidationPrice: 0.9299,
-                initialMargin: 126712.50,
-                apiSymbol: "ASTERUSDT",
-                side: "LONG",
-                displayName: "ASTER"
-            },
-            atom: {
-                symbol: "ATOMUSDT",
-                quantity: 278360.0,
-                entryPrice: 2.809,
-                leverage: 10,
-                liquidationPrice: 2.587,
-                initialMargin: 782052.42,
-                apiSymbol: "ATOMUSDT",
-                side: "LONG",
-                displayName: "ATOM"
-            },
-            sui: {
-                symbol: "SUIUSDT",
-                quantity: 799950,
-                entryPrice: 1.78677,
-                leverage: 10,
-                liquidationPrice: 1.63680,
-                initialMargin: 1429330.65,
-                apiSymbol: "SUIUSDT",
-                side: "LONG",
-                displayName: "SUI"
-            },
-            avax: {
-                symbol: "AVAXUSDT",
-                quantity: 64690.0,
-                entryPrice: 15.625,
-                leverage: 10,
-                liquidationPrice: 14.339,
-                initialMargin: 1010781.25,
-                apiSymbol: "AVAXUSDT",
-                side: "LONG",
-                displayName: "AVAX"
-            },
-            tia: {
-                symbol: "TIAUSDT",
-                quantity: 2050800.0,
-                entryPrice: 0.8620,
-                leverage: 10,
-                liquidationPrice: 0.7982,
-                initialMargin: 1767789.60,
-                apiSymbol: "TIAUSDT",
-                side: "LONG",
-                displayName: "TIA"
-            },
-            link: {
-                symbol: "LINKUSDT",
-                quantity: 103566.5,
-                entryPrice: 14.173,
-                leverage: 10,
-                liquidationPrice: 13.076,
-                initialMargin: 1467848.00,
-                apiSymbol: "LINKUSDT",
-                side: "LONG",
-                displayName: "LINK"
-            },
-            inj: {
-                symbol: "INJUSDT",
-                quantity: 240560.0,
-                entryPrice: 6.8430,
-                leverage: 10,
-                liquidationPrice: 6.3280,
-                initialMargin: 1646152.08,
-                apiSymbol: "INJUSDT",
-                side: "LONG",
-                displayName: "INJ"
+                displayName: "SOL"
             }
         };
+
+        // Cüzdan bakiyesi - Başlangıç: 1000 USDT
+        const initialWalletBalance = 1000.00;
 
         // DOM elementlerini oluştur
         function initializeTable() {
@@ -769,18 +694,8 @@
                         console.error(`${position.apiSymbol} fiyatı alınamadı:`, error);
                         // Bu coin için görseldeki sabit fiyatları kullan
                         const fixedPrices = {
-                            btc: 96325.52,
-                            sol: 141.874,
-                            fil: 1.985,
                             eth: 3207.92,
-                            xrp: 2.2883,
-                            aster: 1.0880,
-                            atom: 2.860,
-                            sui: 1.77739,
-                            avax: 15.535,
-                            tia: 0.8924,
-                            link: 14.196,
-                            inj: 7.1933
+                            sol: 141.874
                         };
                         const markPrice = fixedPrices[key];
                         const priceDifference = markPrice - position.entryPrice;
@@ -810,18 +725,8 @@
 
             Object.entries(positions).forEach(([key, position]) => {
                 const fixedPrices = {
-                    btc: 96325.52,
-                    sol: 141.874,
-                    fil: 1.985,
                     eth: 3207.92,
-                    xrp: 2.2883,
-                    aster: 1.0880,
-                    atom: 2.860,
-                    sui: 1.77739,
-                    avax: 15.535,
-                    tia: 0.8924,
-                    link: 14.196,
-                    inj: 7.1933
+                    sol: 141.874
                 };
                 const markPrice = fixedPrices[key];
                 const priceDifference = markPrice - position.entryPrice;
@@ -866,13 +771,29 @@
 
         function updateTotalStats(totalPnl) {
             const totalPnlElement = document.getElementById('total-pnl');
+            const walletBalanceElement = document.getElementById('wallet-balance');
             
             if (totalPnlElement) {
                 const sign = totalPnl >= 0 ? '+' : '';
                 totalPnlElement.textContent = `${sign}${formatNumber(totalPnl)} USDT`;
             }
             
-            // Renkleri ayarla
+            // Cüzdan bakiyesini güncelle (başlangıç bakiyesi + PnL)
+            if (walletBalanceElement) {
+                const currentBalance = initialWalletBalance + totalPnl;
+                walletBalanceElement.textContent = `$${formatNumber(currentBalance)} USDT`;
+                
+                // Cüzdan bakiyesi renkleri
+                if (currentBalance > initialWalletBalance) {
+                    walletBalanceElement.className = 'wallet-balance-value stat-positive';
+                } else if (currentBalance < initialWalletBalance) {
+                    walletBalanceElement.className = 'wallet-balance-value stat-negative';
+                } else {
+                    walletBalanceElement.className = 'wallet-balance-value';
+                }
+            }
+            
+            // Toplam PnL renkleri ayarla
             if (totalPnl > 0) {
                 if (totalPnlElement) totalPnlElement.className = 'total-pnl-value stat-positive';
             } else if (totalPnl < 0) {
