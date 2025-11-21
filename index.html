@@ -345,6 +345,85 @@
             color: var(--text-primary);
         }
 
+        /* Notes Container Styles */
+        .notes-container {
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .notes-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .notes-header h3 {
+            color: var(--blue);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .notes-header h3 i {
+            margin-right: 8px;
+        }
+
+        .notes-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .notes-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .note-item {
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+            border-radius: 6px;
+            padding: 15px;
+            border-left: 3px solid var(--blue);
+        }
+
+        .note-item:nth-child(2) {
+            border-left-color: var(--green);
+        }
+
+        .note-item:nth-child(3) {
+            border-left-color: var(--orange);
+        }
+
+        .note-symbol {
+            font-weight: bold;
+            color: var(--blue);
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: inline-block;
+            background: rgba(55, 114, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .note-text {
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .note-text strong {
+            color: var(--green);
+        }
+
+        .note-meta {
+            font-size: 11px;
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -478,6 +557,40 @@
             </div>
 
             <!-- Positions will be populated by JavaScript -->
+        </div>
+
+        <!-- Notes Container -->
+        <div class="notes-container">
+            <div class="notes-header">
+                <h3><i class="fas fa-sticky-note"></i> Pozisyon Notları</h3>
+                <div class="notes-subtitle">Takipçiler için önemli bilgiler ve yorumlar</div>
+            </div>
+            
+            <div class="notes-content">
+                <div class="note-item">
+                    <div class="note-symbol">ETHUSDT</div>
+                    <div class="note-text">
+                        <strong>Analiz:</strong> ETH 2800-2900 aralığında konsolidasyon yapıyor. Yukarı kırılım için 2950 seviyesi ana direnç.
+                    </div>
+                    <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
+                </div>
+                
+                <div class="note-item">
+                    <div class="note-symbol">SOLUSDT</div>
+                    <div class="note-text">
+                        <strong>Strateji:</strong> SOL 130-140 bandında işlem görüyor. Stop-loss 125, hedef 150 seviyesi.
+                    </div>
+                    <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
+                </div>
+                
+                <div class="note-item">
+                    <div class="note-symbol">GENEL</div>
+                    <div class="note-text">
+                        <strong>Piyasa Görünümü:</strong> Genel piyasa sentimentı olumlu. BTC dominance düşüşü altcoinler için fırsat olabilir.
+                    </div>
+                    <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
+                </div>
+            </div>
         </div>
 
         <!-- Footer -->
@@ -685,6 +798,21 @@
             document.getElementById('current-time').textContent = timeString;
         }
 
+        // Notes tarih güncelleme
+        function updateNotesDate() {
+            const now = new Date();
+            const dateOptions = { 
+                day: 'numeric', 
+                month: 'long', 
+                year: 'numeric'
+            };
+            const dateString = now.toLocaleDateString('tr-TR', dateOptions);
+            
+            document.querySelectorAll('.note-meta').forEach(meta => {
+                meta.textContent = `Güncellendi: ${dateString}`;
+            });
+        }
+
         // Gerçek zamanlı fiyat çekme ve PnL hesaplama
         async function updatePricesAndPnL() {
             try {
@@ -858,6 +986,9 @@
             
             // Tarih/saati güncelle
             updateDateTime();
+            
+            // Notes tarihini güncelle
+            updateNotesDate();
             
             // Hemen API'den gerçek verileri çek
             updatePricesAndPnL();
