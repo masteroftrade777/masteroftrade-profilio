@@ -532,12 +532,12 @@
             <div class="stat-card">
                 <div class="stat-label">Toplam PnL</div>
                 <div class="total-pnl-container">
-                    <div class="total-pnl-value stat-negative" id="total-pnl">-$400.00 USDT</div>
+                    <div class="total-pnl-value" id="total-pnl">$0.00 USDT</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Açık Pozisyon</div>
-                <div class="stat-value">0</div>
+                <div class="stat-value">1</div>
                 <div class="stat-label">Toplam İşlem</div>
             </div>
             <div class="stat-card top-performer">
@@ -575,12 +575,7 @@
                 <div>Unrealized P&L</div>
             </div>
 
-            <!-- No Positions Message -->
-            <div class="no-positions">
-                <i class="fas fa-chart-line"></i>
-                <h3>Aktif Pozisyon Bulunmuyor</h3>
-                <p>Şu anda açık pozisyonunuz bulunmamaktadır.</p>
-            </div>
+            <!-- Positions will be populated by JavaScript -->
         </div>
 
         <!-- Notes Container -->
@@ -592,9 +587,9 @@
             
             <div class="notes-content">
                 <div class="note-item">
-                    <div class="note-symbol">DURUM</div>
+                    <div class="note-symbol">XRPUSDT</div>
                     <div class="note-text">
-                        <strong>Güncel Durum:</strong> Şu anda aktif pozisyon bulunmuyor. Piyasa gözlemi yapılıyor.
+                        <strong>Analiz:</strong> XRP 1.95-2.00 aralığında destek testi yapıyor. Yukarı kırılım için 2.10 seviyesi ana direnç.
                     </div>
                     <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
                 </div>
@@ -602,7 +597,7 @@
                 <div class="note-item">
                     <div class="note-symbol">STRATEJİ</div>
                     <div class="note-text">
-                        <strong>Sonraki Hamle:</strong> BTC 60.000-62.000 aralığında destek aranıyor. Altcoin seçimleri için bu seviyeler kritik.
+                        <strong>Pozisyon:</strong> XRP long pozisyonu açıldı. bu sefer vurucaz.
                     </div>
                     <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
                 </div>
@@ -610,7 +605,7 @@
                 <div class="note-item">
                     <div class="note-symbol">GENEL</div>
                     <div class="note-text">
-                        <strong>Piyasa Görünümü:</strong> Genel piyasa sentimentı nötr. Alım fırsatları için dip seviyeler takip ediliyor.
+                        <strong>Piyasa Görünümü:</strong> Altcoinler toparlanma sinyali veriyor. XRP teknik olarak destek seviyelerinde.
                     </div>
                     <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
                 </div>
@@ -628,12 +623,25 @@
     </div>
 
     <script>
-        // Aktif pozisyon yok - boş obje
-        const positions = {};
+        // Tüm pozisyon bilgileri (XRP)
+        const positions = {
+            xrp: {
+                symbol: "XRPUSDT",
+                quantity: 3004.8,
+                entryPrice: 1.9731,
+                leverage: 10,
+                liquidationPrice: 1.7893,
+                initialMargin: 5928.77,
+                apiSymbol: "XRPUSDT",
+                side: "LONG",
+                displayName: "XRP"
+            }
+        };
 
-        // Cüzdan bakiyesi - Başlangıç: 1000 USDT, Güncel: 600 USDT
+        // Başlangıç bakiyesi: 1000 USDT
+        // Mevcut bakiye: 600 USDT (realized zarar: -400 USDT)
         const initialWalletBalance = 1000.00;
-        const currentWalletBalance = 600.00;
+        const baseWalletBalance = 600.00; // Realized zarardan sonraki bakiye
 
         // Sayfa görünürlüğü kontrolü
         let pageInitialized = false;
@@ -645,9 +653,10 @@
         function initializeTable() {
             const table = document.querySelector('.positions-table');
             
-            // Aktif pozisyon yoksa tablo oluşturma
-            if (Object.keys(positions).length === 0) {
-                return;
+            // "Aktif pozisyon yok" mesajını kaldır
+            const noPositionsMsg = table.querySelector('.no-positions');
+            if (noPositionsMsg) {
+                noPositionsMsg.remove();
             }
             
             Object.entries(positions).forEach(([key, position]) => {
@@ -841,57 +850,57 @@
         // Gerçek zamanlı fiyat çekme ve PnL hesaplama
         async function updatePricesAndPnL() {
             try {
-                let totalPnl = 0;
+                let totalUnrealizedPnl = 0;
                 const currentPnLs = {};
 
-                // Aktif pozisyon yoksa sadece toplam PnL'yi güncelle
-                if (Object.keys(positions).length === 0) {
-                    const totalPnlValue = currentWalletBalance - initialWalletBalance; // -400 USDT
-                    updateTotalStats(totalPnlValue);
-                    
-                    if (!pageInitialized) {
-                        showPage();
+                // Aktif pozisyon varsa fiyatları çek
+                if (Object.keys(positions).length > 0) {
+                    const failedSymbols = [];
+
+                    for (const [key, position] of Object.entries(positions)) {
+                        try {
+                            const markPrice = await fetchWithTimeout(`https://api.binance.com/api/v3/ticker/price?symbol=${position.apiSymbol}`, 8000);
+                            
+                            // PnL hesaplama
+                            const priceDifference = markPrice - position.entryPrice;
+                            const pnl = priceDifference * position.quantity;
+                            currentPnLs[key] = pnl;
+                            
+                            // UI güncelleme
+                            updatePositionUI(key, markPrice, pnl);
+                            
+                            totalUnrealizedPnl += pnl;
+                            
+                        } catch (error) {
+                            failedSymbols.push(key);
+                            console.warn(`${position.apiSymbol} fiyatı alınamadı:`, error.message);
+                        }
                     }
-                    return;
-                }
 
-                // Pozisyon varsa normal işlemlere devam
-                const failedSymbols = [];
-
-                for (const [key, position] of Object.entries(positions)) {
-                    try {
-                        const markPrice = await fetchWithTimeout(`https://api.binance.com/api/v3/ticker/price?symbol=${position.apiSymbol}`, 8000);
-                        
-                        // PnL hesaplama
-                        const priceDifference = markPrice - position.entryPrice;
-                        const pnl = priceDifference * position.quantity;
-                        currentPnLs[key] = pnl;
-                        
-                        // UI güncelleme
-                        updatePositionUI(key, markPrice, pnl);
-                        
-                        totalPnl += pnl;
-                        
-                    } catch (error) {
-                        failedSymbols.push(key);
-                        console.warn(`${position.apiSymbol} fiyatı alınamadı:`, error.message);
+                    // Başarısız olanlar için fallback kullan
+                    if (failedSymbols.length > 0) {
+                        await updateFailedSymbols(failedSymbols, currentPnLs);
+                        failedSymbols.forEach(key => {
+                            totalUnrealizedPnl += currentPnLs[key] || 0;
+                        });
                     }
-                }
 
-                // Başarısız olanlar için fallback kullan
-                if (failedSymbols.length > 0) {
-                    await updateFailedSymbols(failedSymbols, currentPnLs);
-                    failedSymbols.forEach(key => {
-                        totalPnl += currentPnLs[key] || 0;
-                    });
+                    updatePerformanceMetrics(currentPnLs);
                 }
-
-                updatePerformanceMetrics(currentPnLs);
-                updateTotalStats(totalPnl);
+                
+                // CÜZDAN BAKİYESİ HESAPLAMA: Base bakiye + Unrealized PnL
+                const currentWalletBalance = baseWalletBalance + totalUnrealizedPnl;
+                
+                // TOPLAM PNL = SADECE UNREALIZED PNL (kapanan pozisyonları gösterme)
+                const totalPnl = totalUnrealizedPnl;
+                
+                updateTotalStats(totalPnl, currentWalletBalance);
                 
                 if (!pageInitialized) {
                     showPage();
                 }
+                
+                console.log(`Base: ${baseWalletBalance}, Unrealized: ${totalUnrealizedPnl}, Current: ${currentWalletBalance}, Total PnL: ${totalPnl}`);
                 
             } catch (error) {
                 console.error('Genel hata:', error);
@@ -904,8 +913,7 @@
         // Başarısız sembolleri güncelle
         async function updateFailedSymbols(failedSymbols, currentPnLs) {
             const realisticFixedPrices = {
-                eth: 2838.50,
-                sol: 134.20
+                xrp: 1.9750
             };
 
             failedSymbols.forEach(key => {
@@ -919,9 +927,6 @@
         }
 
         function updatePositionUI(positionKey, markPrice, pnl) {
-            // Aktif pozisyon yoksa işlem yapma
-            if (Object.keys(positions).length === 0) return;
-
             const priceElement = document.getElementById(`${positionKey}-mark-price`);
             if (priceElement) {
                 priceElement.textContent = `$${formatPrice(markPrice)}`;
@@ -947,10 +952,11 @@
             }
         }
 
-        function updateTotalStats(totalPnl) {
+        function updateTotalStats(totalPnl, currentWalletBalance) {
             const totalPnlElement = document.getElementById('total-pnl');
             const walletBalanceElement = document.getElementById('wallet-balance');
             
+            // TOPLAM PNL = SADECE UNREALIZED PNL
             if (totalPnlElement) {
                 const sign = totalPnl >= 0 ? '+' : '';
                 totalPnlElement.textContent = `${sign}${formatNumber(totalPnl)} USDT`;
@@ -964,13 +970,13 @@
                 }
             }
             
+            // CÜZDAN BAKİYESİ (Base + Unrealized PnL)
             if (walletBalanceElement) {
-                const currentBalance = initialWalletBalance + totalPnl;
-                walletBalanceElement.textContent = `$${formatNumber(currentBalance)} USDT`;
+                walletBalanceElement.textContent = `$${formatNumber(currentWalletBalance)} USDT`;
                 
-                if (currentBalance > initialWalletBalance) {
+                if (currentWalletBalance > initialWalletBalance) {
                     walletBalanceElement.className = 'wallet-balance-value stat-positive';
-                } else if (currentBalance < initialWalletBalance) {
+                } else if (currentWalletBalance < initialWalletBalance) {
                     walletBalanceElement.className = 'wallet-balance-value stat-negative';
                 } else {
                     walletBalanceElement.className = 'wallet-balance-value';
@@ -989,7 +995,7 @@
             if (price >= 1000) {
                 return price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
             } else {
-                return price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 6});
+                return price.toLocaleString('en-US', {minimumFractionDigits: 4, maximumFractionDigits: 6});
             }
         }
 
@@ -997,20 +1003,23 @@
             if (quantity >= 1000) {
                 return quantity.toLocaleString('en-US', {maximumFractionDigits: 1}) + ' ' + symbol;
             } else {
-                return quantity.toLocaleString('en-US', {maximumFractionDigits: 4}) + ' ' + symbol;
+                return quantity.toLocaleString('en-US', {maximumFractionDigits: 2}) + ' ' + symbol;
             }
         }
 
         // Sayfa yüklendiğinde
         document.addEventListener('DOMContentLoaded', function() {
             console.log('MasterOfTrade Portfolio Tracker yükleniyor...');
-            console.log('Aktif pozisyon: YOK');
-            console.log(`Güncel bakiye: $${currentWalletBalance} USDT`);
+            console.log('Aktif pozisyon: XRPUSDT');
+            console.log(`Miktar: ${positions.xrp.quantity} XRP`);
+            console.log(`Giriş Fiyatı: $${positions.xrp.entryPrice}`);
+            console.log(`Başlangıç bakiyesi: $${initialWalletBalance} USDT`);
+            console.log(`Base bakiye: $${baseWalletBalance} USDT`);
             
             // Sayfayı başlangıçta gizle
             hidePage();
             
-            // Tabloyu oluştur (aktif pozisyon yoksa boş)
+            // Tabloyu oluştur
             initializeTable();
             
             // Tarih/saati güncelle
