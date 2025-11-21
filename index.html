@@ -589,7 +589,7 @@
                 <div class="note-item">
                     <div class="note-symbol">XRPUSDT</div>
                     <div class="note-text">
-                        <strong>Analiz:</strong> XRP 1.95-2.00 aralığında destek testi yapıyor. Yukarı kırılım için 2.10 seviyesi ana direnç.
+                        <strong>Analiz:</strong> XRP 1.92-1.98 aralığında konsolidasyon yapıyor. Yukarı kırılım için 2.00 seviyesi ana direnç.
                     </div>
                     <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
                 </div>
@@ -597,7 +597,7 @@
                 <div class="note-item">
                     <div class="note-symbol">STRATEJİ</div>
                     <div class="note-text">
-                        <strong>Pozisyon:</strong> XRP long pozisyonu açıldı. bu sefer vurucaz.
+                        <strong>Pozisyon:</strong> XRP long pozisyonu güncellendi. Stop-loss 1.76, hedef 2.05-2.10 bölgesi.
                     </div>
                     <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
                 </div>
@@ -605,7 +605,7 @@
                 <div class="note-item">
                     <div class="note-symbol">GENEL</div>
                     <div class="note-text">
-                        <strong>Piyasa Görünümü:</strong> Altcoinler toparlanma sinyali veriyor. XRP teknik olarak destek seviyelerinde.
+                        <strong>Piyasa Görünümü:</strong> Altcoinler teknik destek seviyelerinde. XRP daha düşük miktarla daha kontrollü pozisyon.
                     </div>
                     <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
                 </div>
@@ -623,15 +623,15 @@
     </div>
 
     <script>
-        // Tüm pozisyon bilgileri (XRP)
+        // Tüm pozisyon bilgileri (XRP - GÜNCELLENDİ)
         const positions = {
             xrp: {
                 symbol: "XRPUSDT",
-                quantity: 3004.8,
-                entryPrice: 1.9731,
+                quantity: 515.0,
+                entryPrice: 1.9416,
                 leverage: 10,
-                liquidationPrice: 1.7893,
-                initialMargin: 5928.77,
+                liquidationPrice: 1.7607,
+                initialMargin: 999.92,
                 apiSymbol: "XRPUSDT",
                 side: "LONG",
                 displayName: "XRP"
@@ -913,7 +913,7 @@
         // Başarısız sembolleri güncelle
         async function updateFailedSymbols(failedSymbols, currentPnLs) {
             const realisticFixedPrices = {
-                xrp: 1.9750
+                xrp: 1.9450
             };
 
             failedSymbols.forEach(key => {
@@ -1013,6 +1013,8 @@
             console.log('Aktif pozisyon: XRPUSDT');
             console.log(`Miktar: ${positions.xrp.quantity} XRP`);
             console.log(`Giriş Fiyatı: $${positions.xrp.entryPrice}`);
+            console.log(`Pozisyon Değeri: $${positions.xrp.initialMargin} USDT`);
+            console.log(`Likidasyon: $${positions.xrp.liquidationPrice}`);
             console.log(`Başlangıç bakiyesi: $${initialWalletBalance} USDT`);
             console.log(`Base bakiye: $${baseWalletBalance} USDT`);
             
