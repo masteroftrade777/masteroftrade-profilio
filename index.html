@@ -345,6 +345,25 @@
             color: var(--text-primary);
         }
 
+        /* No Positions Message */
+        .no-positions {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-positions i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .no-positions h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
         /* Notes Container Styles */
         .notes-container {
             background-color: var(--bg-secondary);
@@ -506,33 +525,33 @@
             <div class="stat-card wallet-balance">
                 <div class="stat-label">Cüzdan Bakiyesi</div>
                 <div class="wallet-balance-container">
-                    <div class="wallet-balance-value" id="wallet-balance">$1,000.00 USDT</div>
+                    <div class="wallet-balance-value" id="wallet-balance">$600.00 USDT</div>
                     <div class="initial-balance-info">Başlangıç: $1,000.00 USDT</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Toplam PnL</div>
                 <div class="total-pnl-container">
-                    <div class="total-pnl-value" id="total-pnl">$0.00 USDT</div>
+                    <div class="total-pnl-value stat-negative" id="total-pnl">-$400.00 USDT</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Açık Pozisyon</div>
-                <div class="stat-value">2</div>
+                <div class="stat-value">0</div>
                 <div class="stat-label">Toplam İşlem</div>
             </div>
             <div class="stat-card top-performer">
                 <div class="stat-label">En Yüksek PnL</div>
                 <div class="coin-info">
                     <div class="coin-symbol" id="top-coin-name">-</div>
-                    <div class="coin-pnl-main stat-positive" id="top-coin-pnl">$0.00 USDT</div>
+                    <div class="coin-pnl-main" id="top-coin-pnl">$0.00 USDT</div>
                 </div>
             </div>
             <div class="stat-card worst-performer">
                 <div class="stat-label">En Düşük PnL</div>
                 <div class="coin-info">
                     <div class="coin-symbol" id="worst-coin-name">-</div>
-                    <div class="coin-pnl-main stat-negative" id="worst-coin-pnl">$0.00 USDT</div>
+                    <div class="coin-pnl-main" id="worst-coin-pnl">$0.00 USDT</div>
                 </div>
             </div>
         </div>
@@ -556,7 +575,12 @@
                 <div>Unrealized P&L</div>
             </div>
 
-            <!-- Positions will be populated by JavaScript -->
+            <!-- No Positions Message -->
+            <div class="no-positions">
+                <i class="fas fa-chart-line"></i>
+                <h3>Aktif Pozisyon Bulunmuyor</h3>
+                <p>Şu anda açık pozisyonunuz bulunmamaktadır.</p>
+            </div>
         </div>
 
         <!-- Notes Container -->
@@ -568,17 +592,17 @@
             
             <div class="notes-content">
                 <div class="note-item">
-                    <div class="note-symbol">ETHUSDT</div>
+                    <div class="note-symbol">DURUM</div>
                     <div class="note-text">
-                        <strong>Analiz:</strong> ETH 2736 100 usdt ekleme.
+                        <strong>Güncel Durum:</strong> Şu anda aktif pozisyon bulunmuyor. Piyasa gözlemi yapılıyor.
                     </div>
                     <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
                 </div>
                 
                 <div class="note-item">
-                    <div class="note-symbol">SOLUSDT</div>
+                    <div class="note-symbol">STRATEJİ</div>
                     <div class="note-text">
-                        <strong>Strateji:</strong> SOL 129.1 100 usdt ekleme.
+                        <strong>Sonraki Hamle:</strong> BTC 60.000-62.000 aralığında destek aranıyor. Altcoin seçimleri için bu seviyeler kritik.
                     </div>
                     <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
                 </div>
@@ -586,7 +610,7 @@
                 <div class="note-item">
                     <div class="note-symbol">GENEL</div>
                     <div class="note-text">
-                        <strong>Piyasa Görünümü:</strong> BTC dominance düşüşü altcoinler için fırsat olabilir.Tepki alaacagini dusnuyorum piyasanin.
+                        <strong>Piyasa Görünümü:</strong> Genel piyasa sentimentı nötr. Alım fırsatları için dip seviyeler takip ediliyor.
                     </div>
                     <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
                 </div>
@@ -604,34 +628,12 @@
     </div>
 
     <script>
-        // Tüm pozisyon bilgileri (ETH ve SOL)
-        const positions = {
-            eth: {
-                symbol: "ETHUSDT",
-                quantity: 0.88,
-                entryPrice: 2835.00,
-                leverage: 25,
-                liquidationPrice: 2735.28,
-                initialMargin: 2494.80,
-                apiSymbol: "ETHUSDT",
-                side: "LONG",
-                displayName: "ETH"
-            },
-            sol: {
-                symbol: "SOLUSDT",
-                quantity: 18.6,
-                entryPrice: 133.7,
-                leverage: 25,
-                liquidationPrice: 129.0,
-                initialMargin: 2486.82,
-                apiSymbol: "SOLUSDT",
-                side: "LONG",
-                displayName: "SOL"
-            }
-        };
+        // Aktif pozisyon yok - boş obje
+        const positions = {};
 
-        // Cüzdan bakiyesi - Başlangıç: 1000 USDT
+        // Cüzdan bakiyesi - Başlangıç: 1000 USDT, Güncel: 600 USDT
         const initialWalletBalance = 1000.00;
+        const currentWalletBalance = 600.00;
 
         // Sayfa görünürlüğü kontrolü
         let pageInitialized = false;
@@ -642,6 +644,11 @@
         // DOM elementlerini oluştur
         function initializeTable() {
             const table = document.querySelector('.positions-table');
+            
+            // Aktif pozisyon yoksa tablo oluşturma
+            if (Object.keys(positions).length === 0) {
+                return;
+            }
             
             Object.entries(positions).forEach(([key, position]) => {
                 const row = document.createElement('div');
@@ -693,7 +700,7 @@
         function showPage() {
             document.body.style.visibility = 'visible';
             pageInitialized = true;
-            console.log('Sayfa gösterildi - API verileri yüklendi');
+            console.log('Sayfa gösterildi');
         }
 
         // Sayfayı gizle
@@ -760,6 +767,15 @@
                 } else {
                     topCoinPnl.className = 'coin-pnl-main';
                 }
+            } else {
+                // Aktif pozisyon yoksa varsayılan değerler
+                if (topCoinPnl) {
+                    topCoinPnl.textContent = '$0.00 USDT';
+                    topCoinPnl.className = 'coin-pnl-main';
+                }
+                if (topCoinName) {
+                    topCoinName.textContent = '-';
+                }
             }
 
             // En düşük PnL UI güncelleme
@@ -778,6 +794,15 @@
                     worstCoinPnl.className = 'coin-pnl-main stat-negative';
                 } else {
                     worstCoinPnl.className = 'coin-pnl-main';
+                }
+            } else {
+                // Aktif pozisyon yoksa varsayılan değerler
+                if (worstCoinPnl) {
+                    worstCoinPnl.textContent = '$0.00 USDT';
+                    worstCoinPnl.className = 'coin-pnl-main';
+                }
+                if (worstCoinName) {
+                    worstCoinName.textContent = '-';
                 }
             }
         }
@@ -818,9 +843,21 @@
             try {
                 let totalPnl = 0;
                 const currentPnLs = {};
+
+                // Aktif pozisyon yoksa sadece toplam PnL'yi güncelle
+                if (Object.keys(positions).length === 0) {
+                    const totalPnlValue = currentWalletBalance - initialWalletBalance; // -400 USDT
+                    updateTotalStats(totalPnlValue);
+                    
+                    if (!pageInitialized) {
+                        showPage();
+                    }
+                    return;
+                }
+
+                // Pozisyon varsa normal işlemlere devam
                 const failedSymbols = [];
 
-                // Her coin için fiyat çek ve PnL hesapla
                 for (const [key, position] of Object.entries(positions)) {
                     try {
                         const markPrice = await fetchWithTimeout(`https://api.binance.com/api/v3/ticker/price?symbol=${position.apiSymbol}`, 8000);
@@ -844,7 +881,6 @@
                 // Başarısız olanlar için fallback kullan
                 if (failedSymbols.length > 0) {
                     await updateFailedSymbols(failedSymbols, currentPnLs);
-                    // Failed symbol'lerin PnL'lerini tekrar hesapla
                     failedSymbols.forEach(key => {
                         totalPnl += currentPnLs[key] || 0;
                     });
@@ -853,16 +889,12 @@
                 updatePerformanceMetrics(currentPnLs);
                 updateTotalStats(totalPnl);
                 
-                // İlk başarılı güncellemede sayfayı göster
                 if (!pageInitialized) {
                     showPage();
                 }
                 
-                console.log(`Fiyatlar güncellendi - Sonraki güncelleme: ${UPDATE_INTERVAL/1000} saniye sonra`);
-                
             } catch (error) {
                 console.error('Genel hata:', error);
-                // Hata durumunda da sayfayı göster
                 if (!pageInitialized) {
                     showPage();
                 }
@@ -871,7 +903,6 @@
 
         // Başarısız sembolleri güncelle
         async function updateFailedSymbols(failedSymbols, currentPnLs) {
-            // Gerçek zamanlı fiyatlara yakın değerler (API'den alınmış güncel fiyatlar)
             const realisticFixedPrices = {
                 eth: 2838.50,
                 sol: 134.20
@@ -888,7 +919,9 @@
         }
 
         function updatePositionUI(positionKey, markPrice, pnl) {
-            // Fiyatı güncelle
+            // Aktif pozisyon yoksa işlem yapma
+            if (Object.keys(positions).length === 0) return;
+
             const priceElement = document.getElementById(`${positionKey}-mark-price`);
             if (priceElement) {
                 priceElement.textContent = `$${formatPrice(markPrice)}`;
@@ -898,14 +931,12 @@
                 }, 1000);
             }
             
-            // PnL güncelleme
             const pnlAmountElement = document.getElementById(`${positionKey}-pnl-amount`);
             
             if (pnlAmountElement) {
                 const sign = pnl >= 0 ? '+' : '';
                 pnlAmountElement.textContent = `${sign}${formatNumber(pnl)} USDT`;
                 
-                // Renkleri ayarla
                 if (pnl > 0) {
                     pnlAmountElement.className = 'pnl-cell pnl-positive';
                 } else if (pnl < 0) {
@@ -923,14 +954,20 @@
             if (totalPnlElement) {
                 const sign = totalPnl >= 0 ? '+' : '';
                 totalPnlElement.textContent = `${sign}${formatNumber(totalPnl)} USDT`;
+                
+                if (totalPnl > 0) {
+                    totalPnlElement.className = 'total-pnl-value stat-positive';
+                } else if (totalPnl < 0) {
+                    totalPnlElement.className = 'total-pnl-value stat-negative';
+                } else {
+                    totalPnlElement.className = 'total-pnl-value';
+                }
             }
             
-            // Cüzdan bakiyesini güncelle (başlangıç bakiyesi + PnL)
             if (walletBalanceElement) {
                 const currentBalance = initialWalletBalance + totalPnl;
                 walletBalanceElement.textContent = `$${formatNumber(currentBalance)} USDT`;
                 
-                // Cüzdan bakiyesi renkleri
                 if (currentBalance > initialWalletBalance) {
                     walletBalanceElement.className = 'wallet-balance-value stat-positive';
                 } else if (currentBalance < initialWalletBalance) {
@@ -938,15 +975,6 @@
                 } else {
                     walletBalanceElement.className = 'wallet-balance-value';
                 }
-            }
-            
-            // Toplam PnL renkleri ayarla
-            if (totalPnl > 0) {
-                if (totalPnlElement) totalPnlElement.className = 'total-pnl-value stat-positive';
-            } else if (totalPnl < 0) {
-                if (totalPnlElement) totalPnlElement.className = 'total-pnl-value stat-negative';
-            } else {
-                if (totalPnlElement) totalPnlElement.className = 'total-pnl-value';
             }
         }
 
@@ -976,12 +1004,13 @@
         // Sayfa yüklendiğinde
         document.addEventListener('DOMContentLoaded', function() {
             console.log('MasterOfTrade Portfolio Tracker yükleniyor...');
-            console.log(`Güncelleme aralığı: ${UPDATE_INTERVAL/1000} saniye`);
+            console.log('Aktif pozisyon: YOK');
+            console.log(`Güncel bakiye: $${currentWalletBalance} USDT`);
             
             // Sayfayı başlangıçta gizle
             hidePage();
             
-            // Önce tabloyu oluştur
+            // Tabloyu oluştur (aktif pozisyon yoksa boş)
             initializeTable();
             
             // Tarih/saati güncelle
@@ -997,13 +1026,13 @@
             setInterval(updatePricesAndPnL, UPDATE_INTERVAL);
             setInterval(updateDateTime, 1000);
             
-            // 10 saniye sonra yine de sayfayı göster (fallback)
+            // 3 saniye sonra yine de sayfayı göster (fallback)
             setTimeout(() => {
                 if (!pageInitialized) {
                     console.log('Fallback: Sayfa zaman aşımı nedeniyle gösteriliyor');
                     showPage();
                 }
-            }, 10000);
+            }, 3000);
         });
     </script>
 </body>
