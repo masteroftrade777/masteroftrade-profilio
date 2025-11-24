@@ -7,6 +7,7 @@
     <meta name="description" content="MasterOfTrade - Gerçek zamanlı kripto para pozisyon takip arayüzü">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        
         * {
             margin: 0;
             padding: 0;
@@ -15,20 +16,21 @@
         }
 
         :root {
-            --bg-primary: #0e0e0e;
-            --bg-secondary: #1c1c1c;
-            --bg-tertiary: #2a2a2a;
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a2e;
+            --bg-tertiary: #252547;
             --text-primary: #ffffff;
-            --text-secondary: #b7b7b7;
-            --green: #00c076;
-            --red: #ff554a;
-            --blue: #3772ff;
-            --orange: #ff6b35;
-            --border-color: #2a2a2a;
+            --text-secondary: #b8b8d6;
+            --green: #00ff88;
+            --red: #ff5577;
+            --blue: #4a7dff;
+            --orange: #ff9966;
+            --purple: #9d4dff;
+            --border-color: #2a2a5a;
         }
 
         body {
-            background-color: var(--bg-primary);
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
             color: var(--text-primary);
             line-height: 1.6;
             padding: 20px;
@@ -38,67 +40,140 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
         }
 
-        /* Header Styles */
+        /* Modern Header */
         .header {
             text-align: center;
-            padding: 20px 0;
+            padding: 30px 0;
             margin-bottom: 30px;
-            border-bottom: 1px solid var(--border-color);
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
         }
 
         .logo {
-            font-size: 32px;
+            font-size: 2.5rem;
             font-weight: bold;
-            color: var(--blue);
+            background: linear-gradient(45deg, var(--blue), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
         }
 
         .tagline {
             color: var(--text-secondary);
-            font-size: 16px;
+            font-size: 1.1rem;
         }
 
-        /* Date Time Display */
+        /* Action Buttons */
+        .action-buttons {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-button {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .action-button:hover {
+            background: var(--blue);
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(74, 125, 255, 0.4);
+        }
+
+        .export-button {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .export-button:hover {
+            background: var(--green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+        }
+
+        /* Modern Date Time */
         .datetime-container {
             text-align: center;
-            margin-bottom: 25px;
-            padding: 15px;
-            background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
-            border-radius: 12px;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 20px;
             border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         .date-display {
-            font-size: 20px;
+            font-size: 1.3rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .time-display {
-            font-size: 32px;
+            font-size: 3rem;
             font-weight: bold;
-            color: var(--blue);
+            background: linear-gradient(45deg, var(--blue), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-family: 'Courier New', monospace;
         }
 
-        /* Stats */
+        /* Modern Stats */
         .stats-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
         .stat-card {
-            background-color: var(--bg-secondary);
-            border-radius: 8px;
-            padding: 20px;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 15px;
+            padding: 25px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
         }
 
         .stat-card::before {
@@ -107,26 +182,26 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: var(--blue);
+            height: 4px;
+            background: linear-gradient(45deg, var(--blue), var(--purple));
         }
 
         .stat-card.top-performer::before {
-            background: var(--green);
+            background: linear-gradient(45deg, var(--green), #00cc77);
         }
 
         .stat-card.worst-performer::before {
-            background: var(--red);
+            background: linear-gradient(45deg, var(--red), #ff3355);
         }
 
         .stat-card.wallet-balance::before {
-            background: var(--blue);
+            background: linear-gradient(45deg, var(--blue), var(--purple));
         }
 
         .stat-value {
-            font-size: 24px;
+            font-size: 2.2rem;
             font-weight: bold;
-            margin: 10px 0;
+            margin: 15px 0;
         }
 
         .stat-positive {
@@ -139,33 +214,35 @@
 
         .stat-label {
             color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
-        .stat-subtext {
-            font-size: 12px;
-            color: var(--text-secondary);
-            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .coin-info {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
-            margin-top: 8px;
+            gap: 5px;
+            margin-top: 10px;
         }
 
         .coin-symbol {
             font-weight: 600;
             color: var(--blue);
-            font-size: 14px;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: inline-block;
+            background: rgba(74, 125, 255, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 125, 255, 0.3);
         }
 
         .coin-pnl-main {
             font-weight: bold;
-            font-size: 20px;
+            font-size: 1.4rem;
             margin-top: 5px;
         }
 
@@ -173,67 +250,73 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
+            gap: 5px;
         }
 
         .total-pnl-value {
+            font-size: 2.2rem;
             font-weight: bold;
-            font-size: 24px;
-            margin: 5px 0;
+            margin: 15px 0;
         }
 
         .wallet-balance-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
+            gap: 5px;
         }
 
         .wallet-balance-value {
             font-weight: bold;
-            font-size: 24px;
+            font-size: 2.2rem;
             margin: 5px 0;
             color: var(--blue);
         }
 
         .initial-balance-info {
-            font-size: 11px;
+            font-size: 0.8rem;
             color: var(--text-secondary);
             opacity: 0.7;
-            margin-top: 5px;
+            margin-top: 8px;
         }
 
-        /* Warning Banner */
+        /* Modern Warning Banner */
         .warning-banner {
-            background: linear-gradient(90deg, #ff554a22, #ff554a11);
-            border: 1px solid #ff554a33;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 25px;
+            background: linear-gradient(45deg, rgba(255, 85, 119, 0.1), rgba(255, 85, 119, 0.05));
+            border: 1px solid rgba(255, 85, 119, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
             text-align: center;
+            backdrop-filter: blur(10px);
         }
 
-        /* Positions Table */
+        /* Modern Table */
         .positions-table {
-            background-color: var(--bg-secondary);
-            border-radius: 8px;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 15px;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         .table-header {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-            padding: 15px 20px;
-            background-color: var(--bg-tertiary);
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            padding: 20px;
+            background: var(--bg-tertiary);
             font-weight: 600;
             border-bottom: 1px solid var(--border-color);
-            font-size: 14px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .position-row {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
             padding: 20px;
             border-bottom: 1px solid var(--border-color);
             transition: background-color 0.2s;
@@ -241,7 +324,7 @@
         }
 
         .position-row:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .position-row:last-child {
@@ -253,37 +336,36 @@
             align-items: center;
             gap: 15px;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 1rem;
         }
 
         .coin-icon {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
+            background: linear-gradient(45deg, var(--blue), var(--purple));
+            color: white;
         }
 
         .position-info {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 5px;
         }
 
-        /* YENİ SADE TASARIM */
         .position-details {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 3px;
         }
 
         .leverage-info {
-            font-size: 11px;
+            font-size: 0.8rem;
             color: var(--text-secondary);
             display: flex;
             align-items: center;
@@ -291,7 +373,7 @@
         }
 
         .leverage-icon {
-            font-size: 9px;
+            font-size: 10px;
             opacity: 0.7;
         }
 
@@ -304,25 +386,25 @@
         }
 
         .margin-type {
-            font-size: 10px;
+            font-size: 0.75rem;
             color: var(--blue);
             opacity: 0.8;
         }
 
         .price-cell {
             font-weight: 600;
-            font-size: 14px;
+            font-size: 0.95rem;
         }
 
         .liq-price {
             color: var(--orange);
             font-weight: 600;
-            font-size: 13px;
+            font-size: 0.9rem;
         }
 
         .pnl-cell {
             font-weight: 700;
-            font-size: 15px;
+            font-size: 1rem;
         }
 
         .pnl-positive {
@@ -336,133 +418,269 @@
         .quantity-cell {
             font-weight: 600;
             color: var(--blue);
-            font-size: 14px;
+            font-size: 0.95rem;
         }
 
         .value-cell {
             font-weight: 600;
-            font-size: 14px;
+            font-size: 0.95rem;
             color: var(--text-primary);
         }
 
-        /* No Positions Message */
+        .action-cell {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .action-button-small {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.2s;
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-button-small:hover {
+            color: var(--blue);
+            background: rgba(74, 125, 255, 0.1);
+        }
+
+        .delete-button {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.2s;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .delete-button:hover {
+            color: var(--red);
+            background: rgba(255, 85, 119, 0.1);
+        }
+
         .no-positions {
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             color: var(--text-secondary);
         }
 
         .no-positions i {
             font-size: 48px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             opacity: 0.5;
         }
 
         .no-positions h3 {
-            font-size: 20px;
+            font-size: 1.5rem;
             margin-bottom: 10px;
             color: var(--text-primary);
         }
 
-        /* Notes Container Styles */
+        /* Modern Notes Container */
         .notes-container {
-            background-color: var(--bg-secondary);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
             border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         .notes-header {
             text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
         }
 
         .notes-header h3 {
-            color: var(--blue);
-            font-size: 20px;
-            margin-bottom: 5px;
+            background: linear-gradient(45deg, var(--blue), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
         }
 
         .notes-header h3 i {
-            margin-right: 8px;
+            margin-right: 10px;
         }
 
         .notes-subtitle {
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 1rem;
         }
 
         .notes-content {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 25px;
         }
 
-        .note-item {
-            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
-            border-radius: 6px;
-            padding: 15px;
-            border-left: 3px solid var(--blue);
+        .coin-notes-section {
+            margin-bottom: 30px;
         }
 
-        .note-item:nth-child(2) {
+        .coin-notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .coin-notes-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .coin-note-item {
+            background: rgba(37, 37, 71, 0.6);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--blue);
+            margin-bottom: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .coin-note-item:hover {
+            transform: translateX(5px);
+        }
+
+        .coin-note-item.analysis {
             border-left-color: var(--green);
         }
 
-        .note-item:nth-child(3) {
+        .coin-note-item.strategy {
             border-left-color: var(--orange);
         }
 
-        .note-symbol {
+        .coin-note-item.risk {
+            border-left-color: var(--red);
+        }
+
+        .note-type {
             font-weight: bold;
-            color: var(--blue);
-            font-size: 14px;
-            margin-bottom: 8px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
             display: inline-block;
-            background: rgba(55, 114, 255, 0.1);
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 4px 12px;
+            border-radius: 15px;
+            background: rgba(74, 125, 255, 0.1);
+            color: var(--blue);
+        }
+
+        .note-type.analysis {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--green);
+        }
+
+        .note-type.strategy {
+            background: rgba(255, 153, 102, 0.1);
+            color: var(--orange);
+        }
+
+        .note-type.risk {
+            background: rgba(255, 85, 119, 0.1);
+            color: var(--red);
         }
 
         .note-text {
             color: var(--text-primary);
-            line-height: 1.5;
-            margin-bottom: 8px;
-        }
-
-        .note-text strong {
-            color: var(--green);
+            line-height: 1.6;
+            margin-bottom: 10px;
+            white-space: pre-wrap;
         }
 
         .note-meta {
-            font-size: 11px;
+            font-size: 0.8rem;
             color: var(--text-secondary);
             opacity: 0.7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* Footer */
+        .note-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .note-action-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .note-action-btn:hover {
+            color: var(--blue);
+            background: rgba(74, 125, 255, 0.1);
+        }
+
+        .add-note-btn {
+            background: rgba(37, 37, 71, 0.6);
+            border: 2px dashed var(--border-color);
+            color: var(--text-secondary);
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .add-note-btn:hover {
+            background: rgba(74, 125, 255, 0.1);
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        .no-notes {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Modern Footer */
         .footer {
             text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
+            margin-top: 50px;
+            padding-top: 30px;
             border-top: 1px solid var(--border-color);
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 0.9rem;
         }
 
         .github-info {
-            margin-top: 10px;
-            font-size: 12px;
+            margin-top: 15px;
+            font-size: 0.8rem;
             opacity: 0.7;
         }
 
-        /* Price Animation */
+        /* Animations */
         @keyframes priceUpdate {
             0% { background-color: transparent; }
-            50% { background-color: rgba(0, 192, 118, 0.2); }
+            50% { background-color: rgba(0, 255, 136, 0.2); }
             100% { background-color: transparent; }
         }
 
@@ -470,26 +688,174 @@
             animation: priceUpdate 1s ease;
         }
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .table-header, .position-row {
-                grid-template-columns: 1fr;
-                gap: 12px;
-                text-align: center;
-            }
-            
-            .coin-cell {
-                justify-content: center;
-            }
-            
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
         }
 
+        .modal {
+            background-color: var(--bg-secondary);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-header {
+            background-color: var(--bg-tertiary);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--blue);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 18px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--red);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #5a8cff;
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #3a3a6a;
+        }
+
+        .btn-success {
+            background-color: var(--green);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #00e677;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                padding: 15px;
             }
             
             .position-row {
@@ -497,27 +863,88 @@
             }
             
             .logo {
-                font-size: 24px;
+                font-size: 2rem;
             }
             
             .time-display {
-                font-size: 24px;
+                font-size: 2.5rem;
+            }
+            
+            .action-buttons {
+                position: static;
+                justify-content: center;
+                margin-top: 20px;
+            }
+            
+            .export-button {
+                position: static;
+                margin: 10px auto;
+                display: flex;
+                justify-content: center;
+                width: fit-content;
+            }
+            
+            .coin-notes-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
             }
         }
+
+        /* Read-only styles */
+        .read-only .action-buttons,
+        .read-only .export-button,
+        .read-only .delete-button,
+        .read-only .action-button-small,
+        .read-only #add-position-modal,
+        .read-only #add-note-modal,
+        .read-only .add-note-btn,
+        .read-only .note-actions {
+            display: none !important;
+        }
+
+        .read-only .table-header div:last-child {
+            display: none;
+        }
+
+        .read-only .position-row > div:last-child {
+            display: none;
+        }
+
+        .read-only .table-header {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        }
+
+        .read-only .position-row {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        }
+    
     </style>
 </head>
-<body>
-    <div class="container">
+<body class="read-only">
+    <div class="container read-only">
         <!-- Header -->
         <div class="header">
             <div class="logo">MASTEROFTRADE</div>
             <div class="tagline">Profesyonel Kripto Para Trade Takibi</div>
+            
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="action-button" id="add-position-btn" title="Yeni Pozisyon Ekle">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            
+            <!-- Export Button -->
+            <button class="export-button" id="export-html-btn">
+                <i class="fas fa-download"></i> HTML İndir
+            </button>
         </div>
 
         <!-- Date Time Display -->
         <div class="datetime-container">
-            <div class="date-display" id="current-date">14 Kasım 2025 Perşembe</div>
-            <div class="time-display" id="current-time">22:13:15</div>
+            <div class="date-display" id="current-date">24 Kasım 2025 Pazartesi</div>
+            <div class="time-display" id="current-time">20:07:51</div>
         </div>
 
         <!-- Stats -->
@@ -525,33 +952,33 @@
             <div class="stat-card wallet-balance">
                 <div class="stat-label">Cüzdan Bakiyesi</div>
                 <div class="wallet-balance-container">
-                    <div class="wallet-balance-value" id="wallet-balance">$600.00 USDT</div>
+                    <div class="wallet-balance-value stat-negative" id="wallet-balance">$696.80 USDT</div>
                     <div class="initial-balance-info">Başlangıç: $1,000.00 USDT</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Toplam PnL</div>
                 <div class="total-pnl-container">
-                    <div class="total-pnl-value" id="total-pnl">$0.00 USDT</div>
+                    <div class="total-pnl-value stat-positive" id="total-pnl">+96.80 USDT</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Açık Pozisyon</div>
-                <div class="stat-value">1</div>
+                <div class="stat-value" id="open-positions-count">1</div>
                 <div class="stat-label">Toplam İşlem</div>
             </div>
             <div class="stat-card top-performer">
                 <div class="stat-label">En Yüksek PnL</div>
                 <div class="coin-info">
-                    <div class="coin-symbol" id="top-coin-name">-</div>
-                    <div class="coin-pnl-main" id="top-coin-pnl">$0.00 USDT</div>
+                    <div class="coin-symbol" id="top-coin-name">XRPUSDT</div>
+                    <div class="coin-pnl-main stat-positive" id="top-coin-pnl">+96.80 USDT</div>
                 </div>
             </div>
             <div class="stat-card worst-performer">
                 <div class="stat-label">En Düşük PnL</div>
                 <div class="coin-info">
-                    <div class="coin-symbol" id="worst-coin-name">-</div>
-                    <div class="coin-pnl-main" id="worst-coin-pnl">$0.00 USDT</div>
+                    <div class="coin-symbol" id="worst-coin-name">XRPUSDT</div>
+                    <div class="coin-pnl-main stat-positive" id="worst-coin-pnl">+96.80 USDT</div>
                 </div>
             </div>
         </div>
@@ -572,44 +999,85 @@
                 <div>Entry Price</div>
                 <div>Mark Price</div>
                 <div>Liq. Price</div>
-                <div>Unrealized P&L</div>
+                <div>Unrealized P&amp;L</div>
+                <div>İşlemler</div>
             </div>
-
             <!-- Positions will be populated by JavaScript -->
-        </div>
+        <div class="no-positions">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Aktif Pozisyon Yok</h3>
+                    <p>Şu anda takip edilen bir pozisyon bulunmamaktadır.</p>
+                </div><div class="position-row" id="pos3-position">
+                <div class="coin-cell">
+                    <div class="coin-icon">X</div>
+                    <div class="position-info">
+                        <div>XRPUSDT</div>
+                        <div class="position-details">
+                            <div class="leverage-info leverage-long">
+                                <i class="fas fa-arrow-trend-up leverage-icon"></i>
+                                10x • LONG
+                            </div>
+                            <div class="margin-type">Isolated</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quantity-cell">510 XRP</div>
+                <div class="value-cell">999.92 USDT</div>
+                <div class="price-cell">1.9416</div>
+                <div class="price-cell" id="pos3-mark-price">$2.1314</div>
+                <div class="liq-price">1.7607</div>
+                <div class="pnl-cell" id="pos3-pnl">
+                    <div id="pos3-pnl-amount" class="pnl-cell pnl-positive">+96.80 USDT</div>
+                </div>
+                <div class="action-cell">
+                    <button class="action-button-small" title="Not Ekle" data-position="pos3">
+                        <i class="fas fa-sticky-note"></i>
+                    </button>
+                    <button class="delete-button" data-position="pos3">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div></div>
 
         <!-- Notes Container -->
         <div class="notes-container">
             <div class="notes-header">
-                <h3><i class="fas fa-sticky-note"></i> Pozisyon Notları</h3>
-                <div class="notes-subtitle">Takipçiler için önemli bilgiler ve yorumlar</div>
+                <h3><i class="fas fa-sticky-note"></i> Pozisyon Notları ve Analizler</h3>
+                <div class="notes-subtitle">Her coin için teknik analiz, strateji ve risk değerlendirmeleri</div>
             </div>
             
-            <div class="notes-content">
-                <div class="note-item">
-                    <div class="note-symbol">XRPUSDT</div>
-                    <div class="note-text">
-                        <strong>Analiz:</strong> XRP 1.92-1.98 aralığında konsolidasyon yapıyor. Yukarı kırılım için 2.00 seviyesi ana direnç.
+            <div class="notes-content" id="coin-notes-content"><div class="coin-notes-section">
+                    <div class="coin-notes-header">
+                        <div class="coin-notes-title">
+                            <span class="coin-symbol">XRPUSDT</span>
+                            <span>XRP • LONG • 10x</span>
+                        </div>
+                        <button class="action-button-small add-note-for-coin" data-coin="pos3">
+                            <i class="fas fa-plus"></i> Not Ekle
+                        </button>
                     </div>
-                    <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
-                </div>
-                
-                <div class="note-item">
-                    <div class="note-symbol">STRATEJİ</div>
-                    <div class="note-text">
-                        <strong>Pozisyon:</strong> XRP long pozisyonu güncellendi.
+                    <div class="notes-list" id="notes-pos3">
+                        
+                                <div class="coin-note-item analysis">
+                                    <div class="note-type analysis">
+                                        📊 Teknik Analiz
+                                    </div>
+                                    <div class="note-text">XRP pozu hedefe suan geldi ama biraz beklicem 2.19 lari gorebilir.</div>
+                                    <div class="note-meta">
+                                        <span>24 Kasım 2025</span>
+                                        <div class="note-actions">
+                                            <button class="note-action-btn delete-note" data-coin="pos3" data-index="0">
+                                                <i class="fas fa-trash"></i> Sil
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            
                     </div>
-                    <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
-                </div>
-                
-                <div class="note-item">
-                    <div class="note-symbol">GENEL</div>
-                    <div class="note-text">
-                        <strong>Piyasa Görünümü:</strong> Altcoinler teknik destek seviyelerinde. XRP daha düşük miktarla daha kontrollü pozisyon.
+                    <div class="add-note-btn" data-coin="pos3">
+                        <i class="fas fa-plus"></i> Yeni Not Ekle
                     </div>
-                    <div class="note-meta">Güncellendi: 14 Kasım 2025</div>
-                </div>
-            </div>
+                </div></div>
         </div>
 
         <!-- Footer -->
@@ -623,35 +1091,57 @@
     </div>
 
     <script>
-        // Tüm pozisyon bilgileri (XRP - GÜNCELLENDİ)
-        const positions = {
-            xrp: {
-                symbol: "XRPUSDT",
-                quantity: 515.0,
-                entryPrice: 1.9416,
-                leverage: 10,
-                liquidationPrice: 1.7607,
-                initialMargin: 999.92,
-                apiSymbol: "XRPUSDT",
-                side: "LONG",
-                displayName: "XRP"
-            }
-        };
+        // LocalStorage fonksiyonları
+        function savePositionsToStorage() {
+            // Read-only modda kaydetme işlemi yapma
+        }
 
-        // Başlangıç bakiyesi: 1000 USDT
-        // Mevcut bakiye: 600 USDT (realized zarar: -400 USDT)
+        function loadPositionsFromStorage() {
+            // Read-only modda yükleme işlemi yapma
+            return false;
+        }
+
+        // Tüm pozisyon bilgileri
+        let positions = {
+        "pos3": {
+                "symbol": "XRPUSDT",
+                "quantity": 510,
+                "entryPrice": 1.9416,
+                "leverage": 10,
+                "liquidationPrice": 1.7607,
+                "initialMargin": 999.92,
+                "apiSymbol": "XRPUSDT",
+                "side": "LONG",
+                "displayName": "XRP"
+        }
+};
+        
+        // Coin notları
+        let coinNotes = {
+        "pos3": [
+                {
+                        "type": "analysis",
+                        "content": "XRP pozu hedefe suan geldi ama biraz beklicem 2.19 lari gorebilir.",
+                        "date": "2025-11-24"
+                }
+        ]
+};
+        
+        // Başlangıç bakiyesi
         const initialWalletBalance = 1000.00;
-        const baseWalletBalance = 600.00; // Realized zarardan sonraki bakiye
-
-        // Sayfa görünürlüğü kontrolü
+        let baseWalletBalance = 600;
+        
         let pageInitialized = false;
-
-        // Güncelleme süresi (10 saniye)
         const UPDATE_INTERVAL = 10000;
+        let positionIdCounter = 4;
 
-        // DOM elementlerini oluştur
+        // Sadece görüntüleme fonksiyonları
         function initializeTable() {
             const table = document.querySelector('.positions-table');
+            
+            // Mevcut pozisyon satırlarını temizle
+            const existingRows = table.querySelectorAll('.position-row');
+            existingRows.forEach(row => row.remove());
             
             // "Aktif pozisyon yok" mesajını kaldır
             const noPositionsMsg = table.querySelector('.no-positions');
@@ -659,164 +1149,75 @@
                 noPositionsMsg.remove();
             }
             
+            // Pozisyonları tabloya ekle
             Object.entries(positions).forEach(([key, position]) => {
-                const row = document.createElement('div');
-                row.className = 'position-row';
-                row.id = `${key}-position`;
-                
-                row.innerHTML = `
-                    <div class="coin-cell">
-                        <div class="coin-icon">${position.displayName.charAt(0)}</div>
-                        <div class="position-info">
-                            <div>${position.symbol}</div>
-                            <div class="position-details">
-                                <div class="leverage-info leverage-long">
-                                    <i class="fas fa-arrow-trend-up leverage-icon"></i>
-                                    ${position.leverage}x • LONG
-                                </div>
-                                <div class="margin-type">Isolated</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="quantity-cell">${formatQuantity(position.quantity, position.displayName)}</div>
-                    <div class="value-cell">${formatNumber(position.initialMargin)} USDT</div>
-                    <div class="price-cell">${formatPrice(position.entryPrice)}</div>
-                    <div class="price-cell" id="${key}-mark-price">-</div>
-                    <div class="liq-price">${formatPrice(position.liquidationPrice)}</div>
-                    <div class="pnl-cell" id="${key}-pnl">
-                        <div id="${key}-pnl-amount">-</div>
-                    </div>
+                addPositionRow(key, position);
+            });
+            
+            updateOpenPositionsCount();
+            
+            // Eğer hiç pozisyon yoksa mesaj göster
+            if (Object.keys(positions).length === 0) {
+                const table = document.querySelector('.positions-table');
+                const noPositionsDiv = document.createElement('div');
+                noPositionsDiv.className = 'no-positions';
+                noPositionsDiv.innerHTML = `
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Aktif Pozisyon Yok</h3>
+                    <p>Şu anda takip edilen bir pozisyon bulunmamaktadır.</p>
                 `;
+                table.appendChild(noPositionsDiv);
+            }
+        }
+        function updateOpenPositionsCount() {
+            const openPositionsCount = Object.keys(positions).length;
+            document.getElementById('open-positions-count').textContent = openPositionsCount;
+        }
+        function formatNumber(num) {
+            return num.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+        function formatPrice(price) {
+            if (price >= 1000) {
+                return price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            } else {
+                return price.toLocaleString('en-US', {minimumFractionDigits: 4, maximumFractionDigits: 6});
+            }
+        }
+        function formatQuantity(quantity, symbol) {
+            if (quantity >= 1000) {
+                return quantity.toLocaleString('en-US', {maximumFractionDigits: 1}) + ' ' + symbol;
+            } else {
+                return quantity.toLocaleString('en-US', {maximumFractionDigits: 2}) + ' ' + symbol;
+            }
+        }
+        async function fetchRealPrice(symbol) {
+            try {
+                // Binance API'den gerçek fiyatı çek
+                const response = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`);
+                if (!response.ok) {
+                    throw new Error('API hatası');
+                }
+                const data = await response.json();
+                console.log(`${symbol} gerçek fiyatı:`, data.price);
+                return parseFloat(data.price);
+            } catch (error) {
+                console.warn(`${symbol} gerçek fiyatı alınamadı, mock fiyat kullanılıyor:`, error.message);
                 
-                table.appendChild(row);
-            });
-        }
-
-        // Timeout ile fetch fonksiyonu
-        function fetchWithTimeout(url, timeout = 8000) {
-            return Promise.race([
-                fetch(url).then(response => {
-                    if (!response.ok) throw new Error('HTTP error');
-                    return response.json();
-                }).then(data => parseFloat(data.price)),
-                new Promise((_, reject) => 
-                    setTimeout(() => reject(new Error('Timeout')), timeout)
-                )
-            ]);
-        }
-
-        // Sayfayı göster
-        function showPage() {
-            document.body.style.visibility = 'visible';
-            pageInitialized = true;
-            console.log('Sayfa gösterildi');
-        }
-
-        // Sayfayı gizle
-        function hidePage() {
-            document.body.style.visibility = 'hidden';
-        }
-
-        // En yüksek ve en düşük PnL takibi
-        let topPerformer = { symbol: '', name: '', pnl: 0 };
-        let worstPerformer = { symbol: '', name: '', pnl: 0 };
-
-        // En yüksek ve en düşük PnL'yi bulma fonksiyonu
-        function updatePerformanceMetrics(currentPnLs) {
-            let highestPnl = -Infinity;
-            let lowestPnl = Infinity;
-            let topCoin = '';
-            let worstCoin = '';
-
-            Object.entries(currentPnLs).forEach(([key, pnl]) => {
-                if (pnl > highestPnl) {
-                    highestPnl = pnl;
-                    topCoin = key;
-                }
-                if (pnl < lowestPnl) {
-                    lowestPnl = pnl;
-                    worstCoin = key;
-                }
-            });
-
-            if (topCoin && positions[topCoin]) {
-                topPerformer = {
-                    symbol: positions[topCoin].displayName,
-                    name: positions[topCoin].symbol,
-                    pnl: highestPnl
+                // Fallback mock fiyatlar
+                const mockPrices = {
+                    'XRPUSDT': 0.62, // Gerçek XRP fiyatı
+                    'BTCUSDT': 35000,
+                    'ETHUSDT': 2000,
+                    'ADAUSDT': 0.45,
+                    'DOTUSDT': 6.80
                 };
-            }
-
-            if (worstCoin && positions[worstCoin]) {
-                worstPerformer = {
-                    symbol: positions[worstCoin].displayName,
-                    name: positions[worstCoin].symbol,
-                    pnl: lowestPnl
-                };
-            }
-
-            updatePerformanceUI();
-        }
-
-        function updatePerformanceUI() {
-            // En yüksek PnL UI güncelleme
-            const topCoinPnl = document.getElementById('top-coin-pnl');
-            const topCoinName = document.getElementById('top-coin-name');
-
-            if (topCoinPnl && topPerformer.symbol) {
-                const sign = topPerformer.pnl >= 0 ? '+' : '';
-                topCoinPnl.textContent = `${sign}${formatNumber(topPerformer.pnl)} USDT`;
-                topCoinName.textContent = topPerformer.name;
-
-                // Renk ayarla
-                if (topPerformer.pnl > 0) {
-                    topCoinPnl.className = 'coin-pnl-main stat-positive';
-                } else if (topPerformer.pnl < 0) {
-                    topCoinPnl.className = 'coin-pnl-main stat-negative';
-                } else {
-                    topCoinPnl.className = 'coin-pnl-main';
-                }
-            } else {
-                // Aktif pozisyon yoksa varsayılan değerler
-                if (topCoinPnl) {
-                    topCoinPnl.textContent = '$0.00 USDT';
-                    topCoinPnl.className = 'coin-pnl-main';
-                }
-                if (topCoinName) {
-                    topCoinName.textContent = '-';
-                }
-            }
-
-            // En düşük PnL UI güncelleme
-            const worstCoinPnl = document.getElementById('worst-coin-pnl');
-            const worstCoinName = document.getElementById('worst-coin-name');
-
-            if (worstCoinPnl && worstPerformer.symbol) {
-                const sign = worstPerformer.pnl >= 0 ? '+' : '';
-                worstCoinPnl.textContent = `${sign}${formatNumber(worstPerformer.pnl)} USDT`;
-                worstCoinName.textContent = worstPerformer.name;
-
-                // Renk ayarla
-                if (worstPerformer.pnl > 0) {
-                    worstCoinPnl.className = 'coin-pnl-main stat-positive';
-                } else if (worstPerformer.pnl < 0) {
-                    worstCoinPnl.className = 'coin-pnl-main stat-negative';
-                } else {
-                    worstCoinPnl.className = 'coin-pnl-main';
-                }
-            } else {
-                // Aktif pozisyon yoksa varsayılan değerler
-                if (worstCoinPnl) {
-                    worstCoinPnl.textContent = '$0.00 USDT';
-                    worstCoinPnl.className = 'coin-pnl-main';
-                }
-                if (worstCoinName) {
-                    worstCoinName.textContent = '-';
-                }
+                
+                return mockPrices[symbol] || 1.0;
             }
         }
-
-        // Tarih ve saat güncelleme
         function updateDateTime() {
             const now = new Date();
             const dateOptions = { 
@@ -831,8 +1232,6 @@
             document.getElementById('current-date').textContent = dateString;
             document.getElementById('current-time').textContent = timeString;
         }
-
-        // Notes tarih güncelleme
         function updateNotesDate() {
             const now = new Date();
             const dateOptions = { 
@@ -842,56 +1241,53 @@
             };
             const dateString = now.toLocaleDateString('tr-TR', dateOptions);
             
+            // Genel notların tarihini güncelle
             document.querySelectorAll('.note-meta').forEach(meta => {
-                meta.textContent = `Güncellendi: ${dateString}`;
+                if (meta.textContent.includes('Güncellendi:')) {
+                    meta.textContent = `Güncellendi: ${dateString}`;
+                }
             });
         }
-
-        // Gerçek zamanlı fiyat çekme ve PnL hesaplama
         async function updatePricesAndPnL() {
             try {
                 let totalUnrealizedPnl = 0;
                 const currentPnLs = {};
 
-                // Aktif pozisyon varsa fiyatları çek
                 if (Object.keys(positions).length > 0) {
-                    const failedSymbols = [];
-
                     for (const [key, position] of Object.entries(positions)) {
                         try {
-                            const markPrice = await fetchWithTimeout(`https://api.binance.com/api/v3/ticker/price?symbol=${position.apiSymbol}`, 8000);
+                            // GERÇEK FİYATI AL
+                            const markPrice = await fetchRealPrice(position.apiSymbol);
                             
-                            // PnL hesaplama
-                            const priceDifference = markPrice - position.entryPrice;
-                            const pnl = priceDifference * position.quantity;
+                            // DOĞRU PnL HESAPLAMA
+                            let pnl;
+                            if (position.side === 'LONG') {
+                                // Long pozisyon: (Mark Price - Entry Price) * Quantity
+                                pnl = (markPrice - position.entryPrice) * position.quantity;
+                            } else {
+                                // Short pozisyon: (Entry Price - Mark Price) * Quantity
+                                pnl = (position.entryPrice - markPrice) * position.quantity;
+                            }
+                            
                             currentPnLs[key] = pnl;
                             
-                            // UI güncelleme
+                            // MARK PRICE'ı GÜNCELLE
                             updatePositionUI(key, markPrice, pnl);
-                            
                             totalUnrealizedPnl += pnl;
                             
                         } catch (error) {
-                            failedSymbols.push(key);
                             console.warn(`${position.apiSymbol} fiyatı alınamadı:`, error.message);
                         }
                     }
-
-                    // Başarısız olanlar için fallback kullan
-                    if (failedSymbols.length > 0) {
-                        await updateFailedSymbols(failedSymbols, currentPnLs);
-                        failedSymbols.forEach(key => {
-                            totalUnrealizedPnl += currentPnLs[key] || 0;
-                        });
-                    }
-
+                    
+                    // En yüksek ve en düşük PnL'yi güncelle
                     updatePerformanceMetrics(currentPnLs);
+                } else {
+                    // Hiç pozisyon yoksa PnL'leri sıfırla
+                    updatePerformanceMetrics({});
                 }
                 
-                // CÜZDAN BAKİYESİ HESAPLAMA: Base bakiye + Unrealized PnL
                 const currentWalletBalance = baseWalletBalance + totalUnrealizedPnl;
-                
-                // TOPLAM PNL = SADECE UNREALIZED PNL (kapanan pozisyonları gösterme)
                 const totalPnl = totalUnrealizedPnl;
                 
                 updateTotalStats(totalPnl, currentWalletBalance);
@@ -900,8 +1296,6 @@
                     showPage();
                 }
                 
-                console.log(`Base: ${baseWalletBalance}, Unrealized: ${totalUnrealizedPnl}, Current: ${currentWalletBalance}, Total PnL: ${totalPnl}`);
-                
             } catch (error) {
                 console.error('Genel hata:', error);
                 if (!pageInitialized) {
@@ -909,24 +1303,10 @@
                 }
             }
         }
-
-        // Başarısız sembolleri güncelle
-        async function updateFailedSymbols(failedSymbols, currentPnLs) {
-            const realisticFixedPrices = {
-                xrp: 1.9450
-            };
-
-            failedSymbols.forEach(key => {
-                const position = positions[key];
-                const markPrice = realisticFixedPrices[key];
-                const priceDifference = markPrice - position.entryPrice;
-                const pnl = priceDifference * position.quantity;
-                currentPnLs[key] = pnl;
-                updatePositionUI(key, markPrice, pnl);
-            });
-        }
-
         function updatePositionUI(positionKey, markPrice, pnl) {
+            console.log(`Updating UI for ${positionKey}: Mark Price = ${markPrice}, PnL = ${pnl}`);
+            
+            // Mark Price'ı güncelle
             const priceElement = document.getElementById(`${positionKey}-mark-price`);
             if (priceElement) {
                 priceElement.textContent = `$${formatPrice(markPrice)}`;
@@ -934,10 +1314,12 @@
                 setTimeout(() => {
                     priceElement.classList.remove('price-update');
                 }, 1000);
+            } else {
+                console.warn(`Element not found: ${positionKey}-mark-price`);
             }
             
+            // PnL'yi güncelle
             const pnlAmountElement = document.getElementById(`${positionKey}-pnl-amount`);
-            
             if (pnlAmountElement) {
                 const sign = pnl >= 0 ? '+' : '';
                 pnlAmountElement.textContent = `${sign}${formatNumber(pnl)} USDT`;
@@ -949,14 +1331,94 @@
                 } else {
                     pnlAmountElement.className = 'pnl-cell';
                 }
+            } else {
+                console.warn(`Element not found: ${positionKey}-pnl-amount`);
             }
         }
+        function updatePerformanceMetrics(currentPnLs) {
+            let highestPnl = -Infinity;
+            let lowestPnl = Infinity;
+            let topCoin = '';
+            let worstCoin = '';
 
+            // Eğer hiç pozisyon yoksa veya currentPnLs boşsa
+            if (Object.keys(currentPnLs).length === 0) {
+                const topCoinPnl = document.getElementById('top-coin-pnl');
+                const topCoinName = document.getElementById('top-coin-name');
+                const worstCoinPnl = document.getElementById('worst-coin-pnl');
+                const worstCoinName = document.getElementById('worst-coin-name');
+                
+                topCoinPnl.textContent = '$0.00 USDT';
+                topCoinName.textContent = '-';
+                topCoinPnl.className = 'coin-pnl-main';
+                
+                worstCoinPnl.textContent = '$0.00 USDT';
+                worstCoinName.textContent = '-';
+                worstCoinPnl.className = 'coin-pnl-main';
+                return;
+            }
+
+            Object.entries(currentPnLs).forEach(([key, pnl]) => {
+                if (pnl > highestPnl) {
+                    highestPnl = pnl;
+                    topCoin = key;
+                }
+                if (pnl < lowestPnl) {
+                    lowestPnl = pnl;
+                    worstCoin = key;
+                }
+            });
+
+            // En yüksek PnL UI güncelleme
+            const topCoinPnl = document.getElementById('top-coin-pnl');
+            const topCoinName = document.getElementById('top-coin-name');
+
+            if (topCoin && positions[topCoin]) {
+                const sign = highestPnl >= 0 ? '+' : '';
+                topCoinPnl.textContent = `${sign}${formatNumber(highestPnl)} USDT`;
+                topCoinName.textContent = positions[topCoin].symbol;
+
+                if (highestPnl > 0) {
+                    topCoinPnl.className = 'coin-pnl-main stat-positive';
+                } else if (highestPnl < 0) {
+                    topCoinPnl.className = 'coin-pnl-main stat-negative';
+                } else {
+                    topCoinPnl.className = 'coin-pnl-main';
+                }
+            } else {
+                // Eğer pozisyon yoksa veya topCoin geçerli değilse
+                topCoinPnl.textContent = '$0.00 USDT';
+                topCoinName.textContent = '-';
+                topCoinPnl.className = 'coin-pnl-main';
+            }
+
+            // En düşük PnL UI güncelleme
+            const worstCoinPnl = document.getElementById('worst-coin-pnl');
+            const worstCoinName = document.getElementById('worst-coin-name');
+
+            if (worstCoin && positions[worstCoin]) {
+                const sign = lowestPnl >= 0 ? '+' : '';
+                worstCoinPnl.textContent = `${sign}${formatNumber(lowestPnl)} USDT`;
+                worstCoinName.textContent = positions[worstCoin].symbol;
+
+                if (lowestPnl > 0) {
+                    worstCoinPnl.className = 'coin-pnl-main stat-positive';
+                } else if (lowestPnl < 0) {
+                    worstCoinPnl.className = 'coin-pnl-main stat-negative';
+                } else {
+                    worstCoinPnl.className = 'coin-pnl-main';
+                }
+            } else {
+                // Eğer pozisyon yoksa veya worstCoin geçerli değilse
+                worstCoinPnl.textContent = '$0.00 USDT';
+                worstCoinName.textContent = '-';
+                worstCoinPnl.className = 'coin-pnl-main';
+            }
+        }
         function updateTotalStats(totalPnl, currentWalletBalance) {
             const totalPnlElement = document.getElementById('total-pnl');
             const walletBalanceElement = document.getElementById('wallet-balance');
             
-            // TOPLAM PNL = SADECE UNREALIZED PNL
             if (totalPnlElement) {
                 const sign = totalPnl >= 0 ? '+' : '';
                 totalPnlElement.textContent = `${sign}${formatNumber(totalPnl)} USDT`;
@@ -970,7 +1432,6 @@
                 }
             }
             
-            // CÜZDAN BAKİYESİ (Base + Unrealized PnL)
             if (walletBalanceElement) {
                 walletBalanceElement.textContent = `$${formatNumber(currentWalletBalance)} USDT`;
                 
@@ -983,40 +1444,147 @@
                 }
             }
         }
-
-        function formatNumber(num) {
-            return num.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
+        function showPage() {
+            document.body.style.visibility = 'visible';
+            pageInitialized = true;
+        }
+        function hidePage() {
+            document.body.style.visibility = 'hidden';
+        }
+        function updateCoinNotesDisplay() {
+            const notesContent = document.getElementById('coin-notes-content');
+            notesContent.innerHTML = '';
+            
+            if (Object.keys(positions).length === 0) {
+                notesContent.innerHTML = `
+                    <div class="no-notes">
+                        <i class="fas fa-sticky-note"></i>
+                        <p>Aktif pozisyon bulunmamaktadır</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            Object.entries(positions).forEach(([key, position]) => {
+                const coinSection = document.createElement('div');
+                coinSection.className = 'coin-notes-section';
+                
+                const notes = coinNotes[key] || [];
+                
+                coinSection.innerHTML = `
+                    <div class="coin-notes-header">
+                        <div class="coin-notes-title">
+                            <span class="coin-symbol">${position.symbol}</span>
+                            <span>${position.displayName} • ${position.side} • ${position.leverage}x</span>
+                        </div>
+                        <button class="action-button-small add-note-for-coin" data-coin="${key}">
+                            <i class="fas fa-plus"></i> Not Ekle
+                        </button>
+                    </div>
+                    <div class="notes-list" id="notes-${key}">
+                        ${notes.length > 0 ? 
+                            notes.map((note, index) => `
+                                <div class="coin-note-item ${note.type}">
+                                    <div class="note-type ${note.type}">
+                                        ${getNoteTypeDisplayName(note.type)}
+                                    </div>
+                                    <div class="note-text">${note.content}</div>
+                                    <div class="note-meta">
+                                        <span>${formatNoteDate(note.date)}</span>
+                                        <div class="note-actions">
+                                            <button class="note-action-btn delete-note" data-coin="${key}" data-index="${index}">
+                                                <i class="fas fa-trash"></i> Sil
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('') : 
+                            '<div class="no-notes">Henüz not eklenmemiş</div>'
+                        }
+                    </div>
+                    <div class="add-note-btn" data-coin="${key}">
+                        <i class="fas fa-plus"></i> Yeni Not Ekle
+                    </div>
+                `;
+                
+                notesContent.appendChild(coinSection);
+            });
+            
+            // Event listener'ları ekle
+            document.querySelectorAll('.add-note-btn, .add-note-for-coin').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const coinKey = this.getAttribute('data-coin');
+                    openAddNoteModalForCoin(coinKey);
+                });
+            });
+            
+            document.querySelectorAll('.delete-note').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const coinKey = this.getAttribute('data-coin');
+                    const noteIndex = parseInt(this.getAttribute('data-index'));
+                    deleteNote(coinKey, noteIndex);
+                });
+            });
+        }
+        function getNoteTypeDisplayName(type) {
+            const typeNames = {
+                'analysis': '📊 Teknik Analiz',
+                'strategy': '🎯 Strateji', 
+                'risk': '⚠️ Risk Değerlendirmesi',
+                'general': '📝 Genel Not'
+            };
+            return typeNames[type] || '📝 Not';
+        }
+        function formatNoteDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('tr-TR', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
             });
         }
 
-        function formatPrice(price) {
-            if (price >= 1000) {
-                return price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            } else {
-                return price.toLocaleString('en-US', {minimumFractionDigits: 4, maximumFractionDigits: 6});
-            }
-        }
-
-        function formatQuantity(quantity, symbol) {
-            if (quantity >= 1000) {
-                return quantity.toLocaleString('en-US', {maximumFractionDigits: 1}) + ' ' + symbol;
-            } else {
-                return quantity.toLocaleString('en-US', {maximumFractionDigits: 2}) + ' ' + symbol;
-            }
+        // Read-only mod için değiştirilmiş fonksiyonlar
+        function addPositionRow(key, position) {
+            const table = document.querySelector('.positions-table');
+            
+            const row = document.createElement('div');
+            row.className = 'position-row';
+            row.id = `${key}-position`;
+            
+            row.innerHTML = `
+                <div class="coin-cell">
+                    <div class="coin-icon">${position.displayName.charAt(0)}</div>
+                    <div class="position-info">
+                        <div>${position.symbol}</div>
+                        <div class="position-details">
+                            <div class="leverage-info ${position.side === 'LONG' ? 'leverage-long' : 'leverage-short'}">
+                                <i class="fas ${position.side === 'LONG' ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down'} leverage-icon"></i>
+                                ${position.leverage}x • ${position.side}
+                            </div>
+                            <div class="margin-type">Isolated</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quantity-cell">${formatQuantity(position.quantity, position.displayName)}</div>
+                <div class="value-cell">${formatNumber(position.initialMargin)} USDT</div>
+                <div class="price-cell">${formatPrice(position.entryPrice)}</div>
+                <div class="price-cell" id="${key}-mark-price">-</div>
+                <div class="liq-price">${formatPrice(position.liquidationPrice)}</div>
+                <div class="pnl-cell" id="${key}-pnl">
+                    <div id="${key}-pnl-amount">-</div>
+                </div>
+                <div class="action-cell" style="display: none;">
+                    <!-- Silme butonu gizli -->
+                </div>
+            `;
+            
+            table.appendChild(row);
         }
 
         // Sayfa yüklendiğinde
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('MasterOfTrade Portfolio Tracker yükleniyor...');
-            console.log('Aktif pozisyon: XRPUSDT');
-            console.log(`Miktar: ${positions.xrp.quantity} XRP`);
-            console.log(`Giriş Fiyatı: $${positions.xrp.entryPrice}`);
-            console.log(`Pozisyon Değeri: $${positions.xrp.initialMargin} USDT`);
-            console.log(`Likidasyon: $${positions.xrp.liquidationPrice}`);
-            console.log(`Başlangıç bakiyesi: $${initialWalletBalance} USDT`);
-            console.log(`Base bakiye: $${baseWalletBalance} USDT`);
+            console.log('MasterOfTrade Portfolio Tracker (Read-Only) yükleniyor...');
             
             // Sayfayı başlangıçta gizle
             hidePage();
@@ -1024,16 +1592,16 @@
             // Tabloyu oluştur
             initializeTable();
             
+            // Coin notlarını göster
+            updateCoinNotesDisplay();
+            
             // Tarih/saati güncelle
             updateDateTime();
             
-            // Notes tarihini güncelle
-            updateNotesDate();
-            
-            // Hemen API'den gerçek verileri çek
+            // Hemen fiyatları güncelle
             updatePricesAndPnL();
             
-            // Periyodik güncellemeler - 10 SANİYE
+            // Periyodik güncellemeler
             setInterval(updatePricesAndPnL, UPDATE_INTERVAL);
             setInterval(updateDateTime, 1000);
             
