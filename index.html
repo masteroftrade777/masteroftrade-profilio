@@ -110,6 +110,15 @@
             box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4);
         }
 
+        .action-button.wallet {
+            background: var(--bg-tertiary);
+        }
+
+        .action-button.wallet:hover {
+            background: var(--green);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+        }
+
         .export-button {
             position: absolute;
             top: 30px;
@@ -131,34 +140,6 @@
             background: var(--green);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
-        }
-
-        /* Modern Date Time */
-        .datetime-container {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 25px;
-            background: rgba(26, 26, 46, 0.8);
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .date-display {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .time-display {
-            font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--blue), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-family: 'Courier New', monospace;
         }
 
         /* Modern Stats */
@@ -274,6 +255,7 @@
             flex-direction: column;
             align-items: center;
             gap: 5px;
+            position: relative;
         }
 
         .wallet-balance-value {
@@ -281,6 +263,29 @@
             font-size: 2.2rem;
             margin: 5px 0;
             color: var(--blue);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+
+        .wallet-balance-value:hover {
+            background: rgba(74, 125, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .wallet-edit-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .wallet-balance-container:hover .wallet-edit-icon {
+            opacity: 1;
         }
 
         .initial-balance-info {
@@ -288,6 +293,64 @@
             color: var(--text-secondary);
             opacity: 0.7;
             margin-top: 8px;
+        }
+
+        /* Tab Navigation */
+        .tabs-container {
+            margin-bottom: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 15px;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px 25px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab:hover {
+            background: rgba(74, 125, 255, 0.1);
+            color: var(--blue);
+        }
+
+        .tab.active {
+            background: var(--blue);
+            color: white;
+            box-shadow: 0 4px 15px rgba(74, 125, 255, 0.4);
+        }
+
+        .tab-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         /* Modern Warning Banner */
@@ -324,6 +387,10 @@
             letter-spacing: 1px;
         }
 
+        .closed-table .table-header {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        }
+
         .position-row {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -331,6 +398,10 @@
             border-bottom: 1px solid var(--border-color);
             transition: background-color 0.2s;
             align-items: center;
+        }
+
+        .closed-table .position-row {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         }
 
         .position-row:hover {
@@ -429,6 +500,11 @@
             font-weight: 600;
             color: var(--blue);
             font-size: 0.95rem;
+        }
+
+        .close-date-cell {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
 
         .action-cell {
@@ -950,10 +1026,6 @@
                 font-size: 2rem;
             }
             
-            .time-display {
-                font-size: 2.5rem;
-            }
-            
             .action-buttons {
                 position: static;
                 justify-content: center;
@@ -973,6 +1045,14 @@
                 gap: 15px;
                 align-items: flex-start;
             }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                padding: 12px 20px;
+            }
         }
 
         /* Read-only styles */
@@ -984,7 +1064,8 @@
         .read-only #add-note-modal,
         .read-only .add-note-btn,
         .read-only .note-actions,
-        .read-only #telegram-settings-modal {
+        .read-only #telegram-settings-modal,
+        .read-only #wallet-edit-modal {
             display: none !important;
         }
 
@@ -1003,11 +1084,39 @@
         .read-only .position-row {
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         }
+
+        .read-only .wallet-balance-value {
+            cursor: default;
+        }
+
+        .read-only .wallet-balance-value:hover {
+            background: transparent;
+            transform: none;
+        }
+
+        .read-only .wallet-edit-icon {
+            display: none;
+        }
+
+        /* HTML Export için tab stilleri */
+        .html-export .tab {
+            cursor: default;
+        }
+
+        .html-export .tab:hover {
+            background: transparent;
+            color: var(--text-secondary);
+        }
+
+        .html-export .tab.active {
+            background: var(--blue);
+            color: white;
+        }
     
     </style>
 </head>
-<body class="read-only">
-    <div class="container read-only">
+<body class="read-only html-export">
+    <div class="container read-only html-export">
         <!-- Header -->
         <div class="header">
             <div class="logo">MASTEROFTRADE</div>
@@ -1017,6 +1126,9 @@
             <div class="action-buttons">
                 <button class="action-button telegram" id="telegram-settings-btn" title="Telegram Ayarları">
                     <i class="fab fa-telegram"></i>
+                </button>
+                <button class="action-button wallet" id="wallet-edit-btn" title="Cüzdan Bakiyesini Düzenle">
+                    <i class="fas fa-wallet"></i>
                 </button>
                 <button class="action-button" id="add-position-btn" title="Yeni Pozisyon Ekle">
                     <i class="fas fa-plus"></i>
@@ -1029,44 +1141,59 @@
             </button>
         </div>
 
-        <!-- Date Time Display -->
-        <div class="datetime-container">
-            <div class="date-display" id="current-date">25 Kasım 2025 Salı</div>
-            <div class="time-display" id="current-time">10:53:07</div>
-        </div>
-
         <!-- Stats -->
         <div class="stats-container">
             <div class="stat-card wallet-balance">
                 <div class="stat-label">Cüzdan Bakiyesi</div>
                 <div class="wallet-balance-container">
-                    <div class="wallet-balance-value stat-negative" id="wallet-balance">$744.1742 USDT</div>
+                    <div class="wallet-balance-value stat-negative" id="wallet-balance">$767.26 USDT</div>
+                    <i class="fas fa-edit wallet-edit-icon" title="Bakiyeyi Düzenle"></i>
                     <div class="initial-balance-info">Başlangıç: $1,000.00 USDT</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Toplam PnL</div>
                 <div class="total-pnl-container">
-                    <div class="total-pnl-value" id="total-pnl">+0.00 USDT</div>
+                    <div class="total-pnl-value stat-positive" id="total-pnl">+23.09 USDT</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Açık Pozisyon</div>
-                <div class="stat-value" id="open-positions-count">0</div>
+                <div class="stat-value" id="open-positions-count">1</div>
                 <div class="stat-label">Toplam İşlem</div>
             </div>
             <div class="stat-card top-performer">
                 <div class="stat-label">En Yüksek PnL</div>
                 <div class="coin-info">
-                    <div class="coin-symbol" id="top-coin-name">-</div>
-                    <div class="coin-pnl-main" id="top-coin-pnl">$0.00 USDT</div>
+                    <div class="coin-symbol" id="top-coin-name">FILUSDT</div>
+                    <div class="coin-pnl-main stat-positive" id="top-coin-pnl">+23.09 USDT</div>
                 </div>
             </div>
             <div class="stat-card worst-performer">
                 <div class="stat-label">En Düşük PnL</div>
                 <div class="coin-info">
-                    <div class="coin-symbol" id="worst-coin-name">-</div>
-                    <div class="coin-pnl-main" id="worst-coin-pnl">$0.00 USDT</div>
+                    <div class="coin-symbol" id="worst-coin-name">FILUSDT</div>
+                    <div class="coin-pnl-main stat-positive" id="worst-coin-pnl">+23.09 USDT</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tabs-container">
+            <div class="tabs">
+                <div class="tab active" data-tab="open-positions">
+                    <i class="fas fa-chart-line"></i>
+                    Açık Pozisyonlar
+                    <span class="tab-badge" id="open-positions-badge">1</span>
+                </div>
+                <div class="tab" data-tab="closed-positions">
+                    <i class="fas fa-history"></i>
+                    Kapanan Pozisyonlar
+                    <span class="tab-badge" id="closed-positions-badge">0</span>
+                </div>
+                <div class="tab" data-tab="notes">
+                    <i class="fas fa-sticky-note"></i>
+                    Notlar &amp; Analizler
                 </div>
             </div>
         </div>
@@ -1078,37 +1205,116 @@
             Sadece kişisel işlemlerimin takipidir. Tüm yatırım kararlarınızın sorumluluğu size aittir.
         </div>
 
-        <!-- Positions Table -->
-        <div class="positions-table">
-            <div class="table-header">
-                <div>Coin</div>
-                <div>IM</div>
-                <div>Entry Price</div>
-                <div>Mark Price</div>
-                <div>Liq. Price</div>
-                <div>Unrealized P&amp;L</div>
-                <div>İşlemler</div>
-            </div>
-            <!-- Positions will be populated by JavaScript -->
-        <div class="no-positions">
-                        <i class="fas fa-chart-line"></i>
-                        <h3>Aktif Pozisyon Yok</h3>
-                        <p>Şu anda takip edilen bir pozisyon bulunmamaktadır.</p>
-                    </div></div>
-
-        <!-- Notes Container -->
-        <div class="notes-container">
-            <div class="notes-header">
-                <h3><i class="fas fa-sticky-note"></i> Pozisyon Notları ve Analizler</h3>
-                <div class="notes-subtitle">Her coin için teknik analiz, strateji ve risk değerlendirmeleri</div>
-            </div>
-            
-            <div class="notes-content" id="coin-notes-content">
-                    <div class="no-notes">
-                        <i class="fas fa-sticky-note"></i>
-                        <p>Aktif pozisyon bulunmamaktadır</p>
+        <!-- Open Positions Tab -->
+        <div class="tab-content active" id="open-positions-tab">
+            <div class="positions-table">
+                <div class="table-header">
+                    <div>Coin</div>
+                    <div>IM</div>
+                    <div>Entry Price</div>
+                    <div>Mark Price</div>
+                    <div>Liq. Price</div>
+                    <div>Unrealized P&amp;L</div>
+                    <div>İşlemler</div>
+                </div>
+                <!-- Positions will be populated by JavaScript -->
+            <div class="no-positions">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Aktif Pozisyon Yok</h3>
+                    <p>Şu anda takip edilen bir pozisyon bulunmamaktadır.</p>
+                </div><div class="position-row" id="pos4-position">
+                <div class="coin-cell">
+                    <div class="coin-icon">F</div>
+                    <div class="position-info">
+                        <div>FILUSDT</div>
+                        <div class="position-details">
+                            <div class="leverage-info leverage-long">
+                                <i class="fas fa-arrow-trend-up leverage-icon"></i>
+                                10x • LONG
+                            </div>
+                            <div class="margin-type">Isolated</div>
+                        </div>
                     </div>
                 </div>
+                <div class="im-cell">100.48 USDT</div>
+                <div class="price-cell">1.6970</div>
+                <div class="price-cell" id="pos4-mark-price">$1.7360</div>
+                <div class="liq-price">1.5590</div>
+                <div class="pnl-cell" id="pos4-pnl">
+                    <div id="pos4-pnl-amount" class="pnl-cell pnl-positive">+23.09 USDT</div>
+                </div>
+                <div class="action-cell">
+                    <button class="action-button-small" title="Not Ekle" data-position="pos4">
+                        <i class="fas fa-sticky-note"></i>
+                    </button>
+                    <button class="delete-button" data-position="pos4">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div></div>
+        </div>
+
+        <!-- Closed Positions Tab -->
+        <div class="tab-content" id="closed-positions-tab">
+            <div class="positions-table closed-table">
+                <div class="table-header">
+                    <div>Coin</div>
+                    <div>IM</div>
+                    <div>Entry Price</div>
+                    <div>Exit Price</div>
+                    <div>Liq. Price</div>
+                    <div>Realized P&amp;L</div>
+                    <div>Kapanma Tarihi</div>
+                    <div>İşlemler</div>
+                </div>
+                <!-- Closed positions will be populated by JavaScript -->
+            <div class="no-positions">
+                    <i class="fas fa-history"></i>
+                    <h3>Kapanan Pozisyon Yok</h3>
+                    <p>Henüz kapanmış bir pozisyon bulunmamaktadır.</p>
+                </div></div>
+        </div>
+
+        <!-- Notes Tab -->
+        <div class="tab-content" id="notes-tab">
+            <div class="notes-container">
+                <div class="notes-header">
+                    <h3><i class="fas fa-sticky-note"></i> Pozisyon Notları ve Analizler</h3>
+                    <div class="notes-subtitle">Her coin için teknik analiz, strateji ve risk değerlendirmeleri</div>
+                </div>
+                
+                <div class="notes-content" id="coin-notes-content"><div class="coin-notes-section">
+                    <div class="coin-notes-header">
+                        <div class="coin-notes-title">
+                            <span class="coin-symbol">FILUSDT</span>
+                        </div>
+                        <button class="action-button-small add-note-for-coin" data-coin="pos4">
+                            <i class="fas fa-plus"></i> Not Ekle
+                        </button>
+                    </div>
+                    <div class="notes-list" id="notes-pos4">
+                        
+                                <div class="coin-note-item analysis">
+                                    <div class="note-type analysis">
+                                        📊 Teknik Analiz
+                                    </div>
+                                    <div class="note-text">BASSSSSS</div>
+                                    <div class="note-meta">
+                                        <span>25 Kasım 2025</span>
+                                        <div class="note-actions">
+                                            <button class="note-action-btn delete-note" data-coin="pos4" data-index="0">
+                                                <i class="fas fa-trash"></i> Sil
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                    </div>
+                    <div class="add-note-btn" data-coin="pos4">
+                        <i class="fas fa-plus"></i> Yeni Not Ekle
+                    </div>
+                </div></div>
+            </div>
         </div>
 
         <!-- Footer -->
@@ -1122,47 +1328,34 @@
     </div>
 
     <script>
-        let positions = {};
-        let coinNotes = {};
-        const initialWalletBalance = 1000.00;
-        let baseWalletBalance = 744.1742;
+        let positions = {
+        "pos4": {
+                "symbol": "FILUSDT",
+                "entryPrice": 1.697,
+                "leverage": 10,
+                "liquidationPrice": 1.559,
+                "initialMargin": 100.48,
+                "apiSymbol": "FILUSDT",
+                "side": "LONG",
+                "displayName": "FIL"
+        }
+};
+        let closedPositions = [];
+        let coinNotes = {
+        "pos4": [
+                {
+                        "type": "analysis",
+                        "content": "BASSSSSS",
+                        "date": "2025-11-25"
+                }
+        ]
+};
+        let initialWalletBalance = 1000;
+        let baseWalletBalance = 744.17;
         let pageInitialized = false;
         const UPDATE_INTERVAL = 10000;
-        let positionIdCounter = 7;
+        let positionIdCounter = 5;
 
-        function initializeTable() {
-            const table = document.querySelector('.positions-table');
-            
-            const existingRows = table.querySelectorAll('.position-row');
-            existingRows.forEach(row => row.remove());
-            
-            const noPositionsMsg = table.querySelector('.no-positions');
-            if (noPositionsMsg) {
-                noPositionsMsg.remove();
-            }
-            
-            Object.entries(positions).forEach(([key, position]) => {
-                addPositionRow(key, position);
-            });
-            
-            updateOpenPositionsCount();
-            
-            if (Object.keys(positions).length === 0) {
-                const table = document.querySelector('.positions-table');
-                const noPositionsDiv = document.createElement('div');
-                noPositionsDiv.className = 'no-positions';
-                noPositionsDiv.innerHTML = `
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Aktif Pozisyon Yok</h3>
-                    <p>Şu anda takip edilen bir pozisyon bulunmamaktadır.</p>
-                `;
-                table.appendChild(noPositionsDiv);
-            }
-        }
-        function updateOpenPositionsCount() {
-            const openPositionsCount = Object.keys(positions).length;
-            document.getElementById('open-positions-count').textContent = openPositionsCount;
-        }
         function formatNumber(num) {
             return num.toLocaleString('en-US', {
                 minimumFractionDigits: 2,
@@ -1199,20 +1392,6 @@
                 return mockPrices[symbol] || 1.0;
             }
         }
-        function updateDateTime() {
-            const now = new Date();
-            const dateOptions = { 
-                day: 'numeric', 
-                month: 'long', 
-                year: 'numeric', 
-                weekday: 'long' 
-            };
-            const dateString = now.toLocaleDateString('tr-TR', dateOptions);
-            const timeString = now.toLocaleTimeString('tr-TR');
-            
-            document.getElementById('current-date').textContent = dateString;
-            document.getElementById('current-time').textContent = timeString;
-        }
         async function updatePricesAndPnL() {
             try {
                 let totalUnrealizedPnl = 0;
@@ -1245,6 +1424,7 @@
                     updatePerformanceMetrics(currentPnLs);
                 } else {
                     updatePerformanceMetrics({});
+                    totalUnrealizedPnl = 0;
                 }
                 
                 const currentWalletBalance = baseWalletBalance + totalUnrealizedPnl;
@@ -1359,6 +1539,7 @@
         function updateTotalStats(totalPnl, currentWalletBalance) {
             const totalPnlElement = document.getElementById('total-pnl');
             const walletBalanceElement = document.getElementById('wallet-balance');
+            const initialBalanceInfo = document.querySelector('.initial-balance-info');
             
             if (totalPnlElement) {
                 const sign = totalPnl >= 0 ? '+' : '';
@@ -1384,6 +1565,10 @@
                     walletBalanceElement.className = 'wallet-balance-value';
                 }
             }
+
+            if (initialBalanceInfo) {
+                initialBalanceInfo.textContent = `Başlangıç: $${formatNumber(initialWalletBalance)} USDT`;
+            }
         }
         function showPage() {
             document.body.style.visibility = 'visible';
@@ -1400,7 +1585,7 @@
                 notesContent.innerHTML = `
                     <div class="no-notes">
                         <i class="fas fa-sticky-note"></i>
-                        <p>Aktif pozisyon bulunmamaktadır</p>
+                        <p>Henüz not eklenmemiş</p>
                     </div>
                 `;
                 return;
@@ -1482,9 +1667,55 @@
                 year: 'numeric'
             });
         }
+        function updateClosedPositionsDisplay() {
+            const closedTable = document.querySelector('#closed-positions-tab .positions-table');
+            const existingRows = closedTable.querySelectorAll('.position-row');
+            existingRows.forEach(row => row.remove());
+            
+            const noPositionsMsg = closedTable.querySelector('.no-positions');
+            if (noPositionsMsg) {
+                noPositionsMsg.remove();
+            }
+            
+            if (closedPositions.length === 0) {
+                const noPositionsDiv = document.createElement('div');
+                noPositionsDiv.className = 'no-positions';
+                noPositionsDiv.innerHTML = `
+                    <i class="fas fa-history"></i>
+                    <h3>Kapanan Pozisyon Yok</h3>
+                    <p>Henüz kapanmış bir pozisyon bulunmamaktadır.</p>
+                `;
+                closedTable.appendChild(noPositionsDiv);
+                return;
+            }
+            
+            // Kapanan pozisyonları ters sırada göster (en yeni en üstte)
+            closedPositions.slice().reverse().forEach((position, index) => {
+                addClosedPositionRow(position);
+            });
+        }
+        function updateTabBadges() {
+            document.getElementById('open-positions-badge').textContent = Object.keys(positions).length;
+            document.getElementById('closed-positions-badge').textContent = closedPositions.length;
+        }
+        function switchTab(tabName) {
+            // Tüm tab içeriklerini gizle
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Tüm tab butonlarını pasif yap
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Seçilen tab'ı aktif yap
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+        }
 
         function addPositionRow(key, position) {
-            const table = document.querySelector('.positions-table');
+            const table = document.querySelector('#open-positions-tab .positions-table');
             const row = document.createElement('div');
             row.className = 'position-row';
             row.id = `${key}-position`;
@@ -1516,15 +1747,99 @@
             table.appendChild(row);
         }
 
+        function addClosedPositionRow(positionData) {
+            const table = document.querySelector('#closed-positions-tab .positions-table');
+            
+            const row = document.createElement('div');
+            row.className = 'position-row';
+            
+            const closeDate = new Date(positionData.closeDate);
+            const formattedDate = closeDate.toLocaleDateString('tr-TR', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            row.innerHTML = `
+                <div class="coin-cell">
+                    <div class="coin-icon">${positionData.displayName.charAt(0)}</div>
+                    <div class="position-info">
+                        <div>${positionData.symbol}</div>
+                        <div class="position-details">
+                            <div class="leverage-info ${positionData.side === 'LONG' ? 'leverage-long' : 'leverage-short'}">
+                                <i class="fas ${positionData.side === 'LONG' ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down'} leverage-icon"></i>
+                                ${positionData.leverage}x • ${positionData.side}
+                            </div>
+                            <div class="margin-type">Isolated</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="im-cell">${formatNumber(positionData.initialMargin)} USDT</div>
+                <div class="price-cell">${formatPrice(positionData.entryPrice)}</div>
+                <div class="price-cell">${formatPrice(positionData.exitPrice)}</div>
+                <div class="liq-price">${formatPrice(positionData.liquidationPrice)}</div>
+                <div class="pnl-cell ${positionData.realizedPnl >= 0 ? 'pnl-positive' : 'pnl-negative'}">
+                    ${positionData.realizedPnl >= 0 ? '+' : ''}${formatNumber(positionData.realizedPnl)} USDT
+                </div>
+                <div class="close-date-cell">${formattedDate}</div>
+                <div class="action-cell" style="display: none;"></div>
+            `;
+            
+            table.appendChild(row);
+        }
+
+        function initializeTable() {
+            const table = document.querySelector('#open-positions-tab .positions-table');
+            
+            const existingRows = table.querySelectorAll('.position-row');
+            existingRows.forEach(row => row.remove());
+            
+            const noPositionsMsg = table.querySelector('.no-positions');
+            if (noPositionsMsg) {
+                noPositionsMsg.remove();
+            }
+            
+            Object.entries(positions).forEach(([key, position]) => {
+                addPositionRow(key, position);
+            });
+            
+            if (Object.keys(positions).length === 0) {
+                const table = document.querySelector('#open-positions-tab .positions-table');
+                const noPositionsDiv = document.createElement('div');
+                noPositionsDiv.className = 'no-positions';
+                noPositionsDiv.innerHTML = `
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Aktif Pozisyon Yok</h3>
+                    <p>Şu anda takip edilen bir pozisyon bulunmamaktadır.</p>
+                `;
+                table.appendChild(noPositionsDiv);
+            }
+        }
+
+        function updateOpenPositionsCount() {
+            const openPositionsCount = Object.keys(positions).length;
+            document.getElementById('open-positions-count').textContent = openPositionsCount;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             console.log('MasterOfTrade Portfolio Tracker (Read-Only) yükleniyor...');
             hidePage();
             initializeTable();
+            updateClosedPositionsDisplay();
+            updateTabBadges();
             updateCoinNotesDisplay();
-            updateDateTime();
             updatePricesAndPnL();
             setInterval(updatePricesAndPnL, UPDATE_INTERVAL);
-            setInterval(updateDateTime, 1000);
+            
+            // Tab event listener'larını kur
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    switchTab(tabName);
+                });
+            });
             
             setTimeout(() => {
                 if (!pageInitialized) {
