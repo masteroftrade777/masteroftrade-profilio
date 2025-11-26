@@ -532,6 +532,26 @@
             background: rgba(74, 125, 255, 0.1);
         }
 
+        /* Düzenleme butonu stili */
+        .edit-button {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.2s;
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .edit-button:hover {
+            color: var(--orange);
+            background: rgba(255, 153, 102, 0.1);
+        }
+
         .delete-button {
             background: none;
             border: none;
@@ -1060,12 +1080,14 @@
         .read-only .export-button,
         .read-only .delete-button,
         .read-only .action-button-small,
+        .read-only .edit-button,
         .read-only #add-position-modal,
         .read-only #add-note-modal,
         .read-only .add-note-btn,
         .read-only .note-actions,
         .read-only #telegram-settings-modal,
-        .read-only #wallet-edit-modal {
+        .read-only #wallet-edit-modal,
+        .read-only #edit-position-modal {
             display: none !important;
         }
 
@@ -1146,7 +1168,7 @@
             <div class="stat-card wallet-balance">
                 <div class="stat-label">Cüzdan Bakiyesi</div>
                 <div class="wallet-balance-container">
-                    <div class="wallet-balance-value stat-negative" id="wallet-balance">$767.26 USDT</div>
+                    <div class="wallet-balance-value stat-negative" id="wallet-balance">$695.62 USDT</div>
                     <i class="fas fa-edit wallet-edit-icon" title="Bakiyeyi Düzenle"></i>
                     <div class="initial-balance-info">Başlangıç: $1,000.00 USDT</div>
                 </div>
@@ -1154,7 +1176,7 @@
             <div class="stat-card">
                 <div class="stat-label">Toplam PnL</div>
                 <div class="total-pnl-container">
-                    <div class="total-pnl-value stat-positive" id="total-pnl">+23.09 USDT</div>
+                    <div class="total-pnl-value stat-negative" id="total-pnl">-48.55 USDT</div>
                 </div>
             </div>
             <div class="stat-card">
@@ -1166,14 +1188,14 @@
                 <div class="stat-label">En Yüksek PnL</div>
                 <div class="coin-info">
                     <div class="coin-symbol" id="top-coin-name">FILUSDT</div>
-                    <div class="coin-pnl-main stat-positive" id="top-coin-pnl">+23.09 USDT</div>
+                    <div class="coin-pnl-main stat-negative" id="top-coin-pnl">-48.55 USDT</div>
                 </div>
             </div>
             <div class="stat-card worst-performer">
                 <div class="stat-label">En Düşük PnL</div>
                 <div class="coin-info">
                     <div class="coin-symbol" id="worst-coin-name">FILUSDT</div>
-                    <div class="coin-pnl-main stat-positive" id="worst-coin-pnl">+23.09 USDT</div>
+                    <div class="coin-pnl-main stat-negative" id="worst-coin-pnl">-48.55 USDT</div>
                 </div>
             </div>
         </div>
@@ -1218,11 +1240,7 @@
                     <div>İşlemler</div>
                 </div>
                 <!-- Positions will be populated by JavaScript -->
-            <div class="no-positions">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Aktif Pozisyon Yok</h3>
-                    <p>Şu anda takip edilen bir pozisyon bulunmamaktadır.</p>
-                </div><div class="position-row" id="pos4-position">
+            <div class="position-row" id="pos4-position">
                 <div class="coin-cell">
                     <div class="coin-icon">F</div>
                     <div class="position-info">
@@ -1238,14 +1256,17 @@
                 </div>
                 <div class="im-cell">100.48 USDT</div>
                 <div class="price-cell">1.6970</div>
-                <div class="price-cell" id="pos4-mark-price">$1.7360</div>
+                <div class="price-cell" id="pos4-mark-price">$1.6150</div>
                 <div class="liq-price">1.5590</div>
                 <div class="pnl-cell" id="pos4-pnl">
-                    <div id="pos4-pnl-amount" class="pnl-cell pnl-positive">+23.09 USDT</div>
+                    <div id="pos4-pnl-amount" class="pnl-cell pnl-negative">-48.55 USDT</div>
                 </div>
                 <div class="action-cell">
                     <button class="action-button-small" title="Not Ekle" data-position="pos4">
                         <i class="fas fa-sticky-note"></i>
+                    </button>
+                    <button class="edit-button" title="Pozisyonu Düzenle" data-position="pos4">
+                        <i class="fas fa-edit"></i>
                     </button>
                     <button class="delete-button" data-position="pos4">
                         <i class="fas fa-trash"></i>
@@ -1294,13 +1315,13 @@
                     </div>
                     <div class="notes-list" id="notes-pos4">
                         
-                                <div class="coin-note-item analysis">
-                                    <div class="note-type analysis">
-                                        📊 Teknik Analiz
+                                <div class="coin-note-item strategy">
+                                    <div class="note-type strategy">
+                                        🎯 Strateji
                                     </div>
-                                    <div class="note-text">BASSSSSS</div>
+                                    <div class="note-text">1.56 giris 100 usdt ekleme</div>
                                     <div class="note-meta">
-                                        <span>25 Kasım 2025</span>
+                                        <span>26 Kasım 2025</span>
                                         <div class="note-actions">
                                             <button class="note-action-btn delete-note" data-coin="pos4" data-index="0">
                                                 <i class="fas fa-trash"></i> Sil
@@ -1344,9 +1365,9 @@
         let coinNotes = {
         "pos4": [
                 {
-                        "type": "analysis",
-                        "content": "BASSSSSS",
-                        "date": "2025-11-25"
+                        "type": "strategy",
+                        "content": "1.56 giris 100 usdt ekleme",
+                        "date": "2025-11-26"
                 }
         ]
 };
