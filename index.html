@@ -1168,7 +1168,7 @@
             <div class="stat-card wallet-balance">
                 <div class="stat-label">Cüzdan Bakiyesi</div>
                 <div class="wallet-balance-container">
-                    <div class="wallet-balance-value stat-negative" id="wallet-balance">$695.62 USDT</div>
+                    <div class="wallet-balance-value stat-negative" id="wallet-balance">$689.34 USDT</div>
                     <i class="fas fa-edit wallet-edit-icon" title="Bakiyeyi Düzenle"></i>
                     <div class="initial-balance-info">Başlangıç: $1,000.00 USDT</div>
                 </div>
@@ -1176,26 +1176,26 @@
             <div class="stat-card">
                 <div class="stat-label">Toplam PnL</div>
                 <div class="total-pnl-container">
-                    <div class="total-pnl-value stat-negative" id="total-pnl">-48.55 USDT</div>
+                    <div class="total-pnl-value stat-negative" id="total-pnl">-54.83 USDT</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Açık Pozisyon</div>
-                <div class="stat-value" id="open-positions-count">1</div>
+                <div class="stat-value" id="open-positions-count">2</div>
                 <div class="stat-label">Toplam İşlem</div>
             </div>
             <div class="stat-card top-performer">
                 <div class="stat-label">En Yüksek PnL</div>
                 <div class="coin-info">
-                    <div class="coin-symbol" id="top-coin-name">FILUSDT</div>
-                    <div class="coin-pnl-main stat-negative" id="top-coin-pnl">-48.55 USDT</div>
+                    <div class="coin-symbol" id="top-coin-name">ETHUSDT</div>
+                    <div class="coin-pnl-main stat-positive" id="top-coin-pnl">+0.23 USDT</div>
                 </div>
             </div>
             <div class="stat-card worst-performer">
                 <div class="stat-label">En Düşük PnL</div>
                 <div class="coin-info">
                     <div class="coin-symbol" id="worst-coin-name">FILUSDT</div>
-                    <div class="coin-pnl-main stat-negative" id="worst-coin-pnl">-48.55 USDT</div>
+                    <div class="coin-pnl-main stat-negative" id="worst-coin-pnl">-55.07 USDT</div>
                 </div>
             </div>
         </div>
@@ -1206,7 +1206,7 @@
                 <div class="tab active" data-tab="open-positions">
                     <i class="fas fa-chart-line"></i>
                     Açık Pozisyonlar
-                    <span class="tab-badge" id="open-positions-badge">1</span>
+                    <span class="tab-badge" id="open-positions-badge">2</span>
                 </div>
                 <div class="tab" data-tab="closed-positions">
                     <i class="fas fa-history"></i>
@@ -1256,10 +1256,10 @@
                 </div>
                 <div class="im-cell">100.48 USDT</div>
                 <div class="price-cell">1.6970</div>
-                <div class="price-cell" id="pos4-mark-price">$1.6150</div>
+                <div class="price-cell price-update" id="pos4-mark-price">$1.6040</div>
                 <div class="liq-price">1.5590</div>
                 <div class="pnl-cell" id="pos4-pnl">
-                    <div id="pos4-pnl-amount" class="pnl-cell pnl-negative">-48.55 USDT</div>
+                    <div id="pos4-pnl-amount" class="pnl-cell pnl-negative">-55.07 USDT</div>
                 </div>
                 <div class="action-cell">
                     <button class="action-button-small" title="Not Ekle" data-position="pos4">
@@ -1269,6 +1269,38 @@
                         <i class="fas fa-edit"></i>
                     </button>
                     <button class="delete-button" data-position="pos4">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div><div class="position-row" id="pos5-position">
+                <div class="coin-cell">
+                    <div class="coin-icon">E</div>
+                    <div class="position-info">
+                        <div>ETHUSDT</div>
+                        <div class="position-details">
+                            <div class="leverage-info leverage-long">
+                                <i class="fas fa-arrow-trend-up leverage-icon"></i>
+                                10x • LONG
+                            </div>
+                            <div class="margin-type">Isolated</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="im-cell">199.44 USDT</div>
+                <div class="price-cell">3,007.00</div>
+                <div class="price-cell price-update" id="pos5-mark-price">$3,007.35</div>
+                <div class="liq-price">2,719.90</div>
+                <div class="pnl-cell" id="pos5-pnl">
+                    <div id="pos5-pnl-amount" class="pnl-cell pnl-positive">+0.23 USDT</div>
+                </div>
+                <div class="action-cell">
+                    <button class="action-button-small" title="Not Ekle" data-position="pos5">
+                        <i class="fas fa-sticky-note"></i>
+                    </button>
+                    <button class="edit-button" title="Pozisyonu Düzenle" data-position="pos5">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="delete-button" data-position="pos5">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
@@ -1334,6 +1366,21 @@
                     <div class="add-note-btn" data-coin="pos4">
                         <i class="fas fa-plus"></i> Yeni Not Ekle
                     </div>
+                </div><div class="coin-notes-section">
+                    <div class="coin-notes-header">
+                        <div class="coin-notes-title">
+                            <span class="coin-symbol">ETHUSDT</span>
+                        </div>
+                        <button class="action-button-small add-note-for-coin" data-coin="pos5">
+                            <i class="fas fa-plus"></i> Not Ekle
+                        </button>
+                    </div>
+                    <div class="notes-list" id="notes-pos5">
+                        <div class="no-notes">Henüz not eklenmemiş</div>
+                    </div>
+                    <div class="add-note-btn" data-coin="pos5">
+                        <i class="fas fa-plus"></i> Yeni Not Ekle
+                    </div>
                 </div></div>
             </div>
         </div>
@@ -1359,6 +1406,16 @@
                 "apiSymbol": "FILUSDT",
                 "side": "LONG",
                 "displayName": "FIL"
+        },
+        "pos5": {
+                "symbol": "ETHUSDT",
+                "entryPrice": 3007,
+                "leverage": 10,
+                "liquidationPrice": 2719.9,
+                "initialMargin": 199.44,
+                "apiSymbol": "ETHUSDT",
+                "side": "LONG",
+                "displayName": "ETH"
         }
 };
         let closedPositions = [];
@@ -1375,7 +1432,7 @@
         let baseWalletBalance = 744.17;
         let pageInitialized = false;
         const UPDATE_INTERVAL = 10000;
-        let positionIdCounter = 5;
+        let positionIdCounter = 6;
 
         function formatNumber(num) {
             return num.toLocaleString('en-US', {
